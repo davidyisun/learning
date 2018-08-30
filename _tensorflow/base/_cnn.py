@@ -56,7 +56,7 @@ def conv2d(x, W):
     前几个参数分别是input, filter, strides, padding, use_cudnn_on_gpu, ...
     input   的格式要求为一个张量，[batch, in_height, in_width, in_channels],批次数，图像高度，图像宽度，通道数
     filter  的格式为[filter_height, filter_width, in_channels, out_channels]，滤波器高度，宽度，输入通道数，输出通道数
-    strides 一个长为4的list. 表示每次卷积以后在input中滑动的距离
+    strides 一个长为4的list. 表示每次卷积以后在input中滑动的距离 最后一维和第一维一定是1
     padding 有SAME和VALID两种选项，表示是否要保留不完全卷积的部分。如果是SAME，则保留
     use_cudnn_on_gpu 是否使用cudnn加速。默认是True
     """
@@ -77,7 +77,7 @@ def max_pool_2x2(x):
 sess = tf.InteractiveSession()
 
 x = tf.placeholder(tf.float32, [None, 784])
-x_image = tf.reshape(x, [-1,28,28,1]) #将输入按照 conv2d中input的格式来reshape，reshape
+x_image = tf.reshape(x, [-1, 28, 28, 1]) #将输入按照 conv2d中input的格式来reshape，reshape
 
 """
 # 第一层
@@ -117,16 +117,16 @@ y_conv=tf.nn.softmax(tf.matmul(h_fc1_drop, W_fc2) + b_fc2) # 使用softmax作为
 y_ = tf.placeholder(tf.float32, [None, 10])
 
 cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(y_conv), reduction_indices=[1])) # 损失函数，交叉熵
-train_step = tf.train.AdamOptimizer(1e-4).minimize(cross_entropy) # 使用adam优化
-correct_prediction = tf.equal(tf.argmax(y_conv,1), tf.argmax(y_,1)) # 计算准确度
+train_step = tf.train.AdamOptimizer(1e-4).minimize(cross_entropy)  # 使用adam优化
+correct_prediction = tf.equal(tf.argmax(y_conv, 1), tf.argmax(y_, 1))  # 计算准确度
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-sess.run(tf.initialize_all_variables()) # 变量初始化
+sess.run(tf.initialize_all_variables())  # 变量初始化
 for i in range(20000):
     batch = mnist.train.next_batch(50)
     if i%100 == 0:
         # print(batch[1].shape)
         train_accuracy = accuracy.eval(feed_dict={
-            x:batch[0], y_: batch[1], keep_prob: 1.0})
+            x: batch[0], y_: batch[1], keep_prob: 1.0})
         print("step %d, training accuracy %g"%(i, train_accuracy))
     train_step.run(feed_dict={x: batch[0], y_: batch[1], keep_prob: 0.5})
 
