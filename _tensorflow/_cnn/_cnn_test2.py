@@ -112,7 +112,7 @@ pbar = tqdm.tqdm(total=epoches)
 
 # 训练
 with tf.Session() as sess:
-    sess.run(tf.initialize_all_tables())
+    sess.run(tf.initialize_all_variables())
     for epoch in range(epoches):
         pbar.set_description('Processing epoch {0}'.format(epoch))
         pbar.update(1)

@@ -67,7 +67,7 @@ with tf.variable_scope('layer03_conv02'):
     W_conv2 = weight_variable(shape=[5, 5, 32, 64])
     b_conv2 = bias_variable(shape=[64])
     h_conv2 = tf.nn.elu(conv2d(x=h_pool1, W=W_conv2)+b_conv2)
-    # h_conv2 = tf.nn.elu(tf.nn.bias_add(h_conv2, b_conv2))
+    # h_conv2 = tf.nn.elu(tf.nn.bias_add(conv2d(x=h_pool1, W=W_conv2), b_conv2))
 
 # 第四层 池化层 输入:h_conv2 14*14*64 输出 7*7*64
 with tf.name_scope('layer04_pool02'):
@@ -88,9 +88,9 @@ with tf.variable_scope('layer05-fc01'):
 
 # 第六层 全连接层 输入: h_fc1_drop 1024 输出: 10  具体分为0~9类别
 with tf.variable_scope('layer06_fc02'):
-    w_fc2 = weight_variable(shape=[1024, 10])
+    W_fc2 = weight_variable(shape=[1024, 10])
     b_fc2 = bias_variable(shape=[10])
-    y_conv = tf.nn.softmax(tf.matmul(h_fc1_drop, w_fc2)+b_fc2)
+    y_conv = tf.nn.softmax(tf.matmul(h_fc1_drop, W_fc2)+b_fc2)
 
 y_ = tf.placeholder(tf.float32, [None, 10])
 
@@ -102,7 +102,7 @@ correct_prediction = tf.equal(tf.argmax(y_conv, 1), tf.argmax(y_, 1))  #准确�
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))  # tf.cast() 转型函数
 
 # 每个批次大小
-batch_size = 100
+batch_size = 50
 # 一共有多少个批次
 n_batch = mnist.train.num_examples // batch_size
 # 训练轮数
