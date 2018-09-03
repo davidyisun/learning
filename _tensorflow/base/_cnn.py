@@ -1,12 +1,3 @@
-#!/usr/bin/env python
-# -*- coding:utf-8 -*-
-"""
-    脚本名:
-Created on 2018--
-@author:David Yisun
-@group:data
-"""
-
 # Copyright 2015 The TensorFlow Authors. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,7 +28,7 @@ import tensorflow as tf
 
 flags = tf.app.flags
 FLAGS = flags.FLAGS
-flags.DEFINE_string('data_dir', '/tmp/data/', 'Directory for storing data')  # 第一次启动会下载文本资料，放在/tmp/data文件夹下
+flags.DEFINE_string('data_dir', '../data/MNIST_data', 'Directory for storing data')  # 把数据放在../data/文件夹中
 
 print(FLAGS.data_dir)
 mnist = input_data.read_data_sets(FLAGS.data_dir, one_hot=True)
