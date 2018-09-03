@@ -48,6 +48,9 @@ def train(mnist):
         global_step,
         mnist.train.num_examples / BATCH_SIZE, LEARNING_RATE_DECAY,
         staircase=True)
+    # --- 计算准确率 ---
+    correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))
+    accuracy = tf.reduce_mean(tf.cast((correct_prediction, tf.float32)))
 
     train_step = tf.train.GradientDescentOptimizer(learning_rate).minimize(loss, global_step=global_step)
     with tf.control_dependencies([train_step, variables_averages_op]):
@@ -69,6 +72,7 @@ def train(mnist):
 
             if i % 100 == 0:
                 print("After %d training step(s), loss on training batch is %g." % (step, loss_value))
+                print("and the accuracy is {0}".format(sess.run(accuracy, feed_dict={x: reshaped_xs, y_: ys})))
 
 # 3. 主程序入口
 def main(argv=None):
