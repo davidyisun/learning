@@ -50,7 +50,7 @@ def train(mnist):
         staircase=True)
     # --- 计算准确率 ---
     correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))
-    accuracy = tf.reduce_mean(tf.cast((correct_prediction, tf.float32)))
+    accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
     train_step = tf.train.GradientDescentOptimizer(learning_rate).minimize(loss, global_step=global_step)
     with tf.control_dependencies([train_step, variables_averages_op]):
