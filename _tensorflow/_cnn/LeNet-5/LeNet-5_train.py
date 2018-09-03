@@ -31,6 +31,7 @@ def train(mnist):
                        name='x-input')
     y_ = tf.placeholder(tf.float32, [None, LeNet5_infernece.OUTPUT_NODE], name='y-input')
 
+    # --- 增加正则化项 减少过拟合 ---
     regularizer = tf.contrib.layers.l2_regularizer(REGULARIZATION_RATE)
     y = LeNet5_infernece.inference(x, False, regularizer)
     global_step = tf.Variable(0, trainable=False)
@@ -71,7 +72,7 @@ def train(mnist):
 
 # 3. 主程序入口
 def main(argv=None):
-    mnist = input_data.read_data_sets('D:/workspace_for_python/to_github/learning2/_tensorflow/data/MNIST_data', one_hot=True)
+    mnist = input_data.read_data_sets('../data/MNIST_data', one_hot=True)
     train(mnist)
 
 if __name__ == '__main__':
