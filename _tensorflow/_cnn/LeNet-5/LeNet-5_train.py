@@ -67,12 +67,13 @@ def train(mnist):
                 LeNet5_infernece.NUM_CHANNELS))
             _, loss_value, step = sess.run([train_op, loss, global_step], feed_dict={x: reshaped_xs, y_: ys})
 
-            if i % 1000 == 0:
+            if i % 100 == 0:
                 print("After %d training step(s), loss on training batch is %g." % (step, loss_value))
 
 # 3. 主程序入口
 def main(argv=None):
     mnist = input_data.read_data_sets('../data/MNIST_data', one_hot=True)
+    print('training * * * * * * * * * * ')
     train(mnist)
 
 if __name__ == '__main__':
