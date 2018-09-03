@@ -76,24 +76,17 @@ h_pool2 = max_pool_2x2(x=h_conv2)
 
 
 # 第五层 全连接层 输入: h_pool2 7*7*64 需要拉直成一个向量 输出: 1024*1
-# # with tf.variable_scope('layer05-fc01'):
-# h_pool2_shape = h_pool2.get_shape()
-# nodes_fc1 = h_pool2_shape[1]*h_pool2_shape[2]*h_pool2_shape[3]
-# h_pool2_flat = tf.reshape(h_pool2, shape=[-1, nodes_fc1])
-# # h_pool2_flat = tf.reshape(h_pool2, shape=[h_pool2_shape[0], nodes_fc1])
-# W_fc1 = weight_variable(shape=[nodes_fc1.value, 1024])
-# b_fc1 = bias_variable(shape=[1024])
-# h_fc1 = tf.nn.elu(tf.nn.bias_add(tf.matmul(h_pool2_flat, W_fc1), b_fc1))
-# # 添加dropout
-# keep_prob = tf.placeholder(tf.float32)
-# h_fc1_drop = tf.nn.dropout(x=h_fc1, keep_prob=keep_prob)
-
-W_fc1 = weight_variable([7 * 7 * 64, 1024])
-b_fc1 = bias_variable([1024])
-h_pool2_flat = tf.reshape(h_pool2, [-1, 7*7*64])
-h_fc1 = tf.nn.elu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
-keep_prob = tf.placeholder(tf.float32) # 这里使用了drop out,即随机安排一些cell输出值为0，可以防止过拟合
-h_fc1_drop = tf.nn.dropout(h_fc1, keep_prob)
+# with tf.variable_scope('layer05-fc01'):
+h_pool2_shape = h_pool2.get_shape()
+nodes_fc1 = h_pool2_shape[1]*h_pool2_shape[2]*h_pool2_shape[3]
+h_pool2_flat = tf.reshape(h_pool2, shape=[-1, nodes_fc1])
+# h_pool2_flat = tf.reshape(h_pool2, shape=[h_pool2_shape[0], nodes_fc1])
+W_fc1 = weight_variable(shape=[nodes_fc1.value, 1024])
+b_fc1 = bias_variable(shape=[1024])
+h_fc1 = tf.nn.elu(tf.nn.bias_add(tf.matmul(h_pool2_flat, W_fc1), b_fc1))
+# 添加dropout
+keep_prob = tf.placeholder(tf.float32)
+h_fc1_drop = tf.nn.dropout(x=h_fc1, keep_prob=keep_prob)
 
 
 
@@ -107,12 +100,19 @@ y_conv = tf.nn.softmax(tf.matmul(h_fc1_drop, w_fc2)+b_fc2)
 
 y_ = tf.placeholder(tf.float32, [None, 10])
 
-# 定义损失函数
-cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_*tf.log(y_conv), reduction_indices=[1]))
-# cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits=y_conv, labels=y_)
-train_step = tf.train.AdadeltaOptimizer(1e-4).minimize(cross_entropy)
-correct_prediction = tf.equal(tf.argmax(y_conv, 1), tf.argmax(y_, 1))  #准确度
-accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))  # tf.cast() 转型函数
+# # 定义损失函数
+# cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_*tf.log(y_conv), reduction_indices=[1]))
+# # cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits=y_conv, labels=y_)
+# train_step = tf.train.AdadeltaOptimizer(1e-4).minimize(cross_entropy)
+# correct_prediction = tf.equal(tf.argmax(y_conv, 1), tf.argmax(y_, 1))  #准确度
+# accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))  # tf.cast() 转型函数
+
+cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(y_conv), reduction_indices=[1])) # 损失函数，交叉熵
+train_step = tf.train.AdamOptimizer(1e-4).minimize(cross_entropy)  # 使用adam优化
+correct_prediction = tf.equal(tf.argmax(y_conv, 1), tf.argmax(y_, 1))  # 计算准确度
+accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+
+
 
 # 每个批次大小
 batch_size = 100
