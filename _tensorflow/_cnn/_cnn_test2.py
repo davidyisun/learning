@@ -100,12 +100,12 @@ y_conv = tf.nn.softmax(tf.matmul(h_fc1_drop, w_fc2)+b_fc2)
 
 y_ = tf.placeholder(tf.float32, [None, 10])
 
-# # 定义损失函数
-# cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_*tf.log(y_conv), reduction_indices=[1]))
-# # cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits=y_conv, labels=y_)
-# train_step = tf.train.AdadeltaOptimizer(1e-4).minimize(cross_entropy)
-# correct_prediction = tf.equal(tf.argmax(y_conv, 1), tf.argmax(y_, 1))  #准确度
-# accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))  # tf.cast() 转型函数
+# # 定义损失函数  注意优化器是否一致
+cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_*tf.log(y_conv), reduction_indices=[1]))
+# cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits=y_conv, labels=y_)
+train_step = tf.train.AdadeltaOptimizer(1e-4).minimize(cross_entropy)
+correct_prediction = tf.equal(tf.argmax(y_conv, 1), tf.argmax(y_, 1))  #准确度
+accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))  # tf.cast() 转型函数
 
 cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(y_conv), reduction_indices=[1])) # 损失函数，交叉熵
 train_step = tf.train.AdamOptimizer(1e-4).minimize(cross_entropy)  # 使用adam优化
