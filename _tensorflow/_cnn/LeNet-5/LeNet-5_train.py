@@ -72,7 +72,7 @@ def train(mnist):
 
 # 3. 主程序入口
 def main(argv=None):
-    mnist = input_data.read_data_sets('../data/MNIST_data', one_hot=True)
+    mnist = input_data.read_data_sets('../../data/MNIST_data', one_hot=True)
     print('training * * * * * * * * * * ')
     train(mnist)
 
