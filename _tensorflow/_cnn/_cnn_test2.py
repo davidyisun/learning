@@ -73,18 +73,31 @@ h_conv2 = tf.nn.elu(conv2d(x=h_pool1, W=W_conv2)+b_conv2)
 # with tf.name_scope('layer04_pool02'):
 h_pool2 = max_pool_2x2(x=h_conv2)
 
+
+
 # 第五层 全连接层 输入: h_pool2 7*7*64 需要拉直成一个向量 输出: 1024*1
-# with tf.variable_scope('layer05-fc01'):
-h_pool2_shape = h_pool2.get_shape()
-nodes_fc1 = h_pool2_shape[1]*h_pool2_shape[2]*h_pool2_shape[3]
-h_pool2_flat = tf.reshape(h_pool2, shape=[-1, nodes_fc1])
-# h_pool2_flat = tf.reshape(h_pool2, shape=[h_pool2_shape[0], nodes_fc1])
-W_fc1 = weight_variable(shape=[nodes_fc1.value, 1024])
-b_fc1 = bias_variable(shape=[1024])
-h_fc1 = tf.nn.elu(tf.nn.bias_add(tf.matmul(h_pool2_flat, W_fc1), b_fc1))
-# 添加dropout
-keep_prob = tf.placeholder(tf.float32)
-h_fc1_drop = tf.nn.dropout(x=h_fc1, keep_prob=keep_prob)
+# # with tf.variable_scope('layer05-fc01'):
+# h_pool2_shape = h_pool2.get_shape()
+# nodes_fc1 = h_pool2_shape[1]*h_pool2_shape[2]*h_pool2_shape[3]
+# h_pool2_flat = tf.reshape(h_pool2, shape=[-1, nodes_fc1])
+# # h_pool2_flat = tf.reshape(h_pool2, shape=[h_pool2_shape[0], nodes_fc1])
+# W_fc1 = weight_variable(shape=[nodes_fc1.value, 1024])
+# b_fc1 = bias_variable(shape=[1024])
+# h_fc1 = tf.nn.elu(tf.nn.bias_add(tf.matmul(h_pool2_flat, W_fc1), b_fc1))
+# # 添加dropout
+# keep_prob = tf.placeholder(tf.float32)
+# h_fc1_drop = tf.nn.dropout(x=h_fc1, keep_prob=keep_prob)
+
+W_fc1 = weight_variable([7 * 7 * 64, 1024])
+b_fc1 = bias_variable([1024])
+h_pool2_flat = tf.reshape(h_pool2, [-1, 7*7*64])
+h_fc1 = tf.nn.elu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
+keep_prob = tf.placeholder(tf.float32) # 这里使用了drop out,即随机安排一些cell输出值为0，可以防止过拟合
+h_fc1_drop = tf.nn.dropout(h_fc1, keep_prob)
+
+
+
+
 
 # 第六层 全连接层 输入: h_fc1_drop 1024 输出: 10  具体分为0~9类别
 # with tf.variable_scope('layer06_fc02'):
