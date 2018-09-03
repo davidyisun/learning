@@ -25,10 +25,11 @@ from __future__ import print_function
 from tensorflow.examples.tutorials.mnist import input_data
 
 import tensorflow as tf
+import tqdm
 
 flags = tf.app.flags
 FLAGS = flags.FLAGS
-flags.DEFINE_string('data_dir', '../data/MNIST_data', 'Directory for storing data')  # 把数据放在../data/文件夹中
+flags.DEFINE_string('data_dir', '../../data/MNIST_data', 'Directory for storing data')  # 把数据放在../data/文件夹中
 
 print(FLAGS.data_dir)
 mnist = input_data.read_data_sets(FLAGS.data_dir, one_hot=True)
@@ -111,15 +112,44 @@ cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(y_conv), reduction_ind
 train_step = tf.train.AdamOptimizer(1e-4).minimize(cross_entropy)  # 使用adam优化
 correct_prediction = tf.equal(tf.argmax(y_conv, 1), tf.argmax(y_, 1))  # 计算准确度
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-sess.run(tf.initialize_all_variables())  # 变量初始化
-for i in range(20000):
-    batch = mnist.train.next_batch(50)
-    if i%100 == 0:
-        # print(batch[1].shape)
-        train_accuracy = accuracy.eval(feed_dict={
-            x: batch[0], y_: batch[1], keep_prob: 1.0})
-        print("step %d, training accuracy %g"%(i, train_accuracy))
-    train_step.run(feed_dict={x: batch[0], y_: batch[1], keep_prob: 0.5})
 
-print("test accuracy %g"%accuracy.eval(feed_dict={
-    x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0}))
+# 每个批次大小
+batch_size = 50
+# 一共有多少个批次
+n_batch = mnist.train.num_examples // batch_size
+# 训练轮数
+epoches = 20
+
+pbar = tqdm.tqdm(total=epoches)
+# 训练
+with tf.Session() as sess:
+    sess.run(tf.initialize_all_variables())
+    for epoch in range(epoches):
+        pbar.set_description('Processing epoch {0}'.format(epoch))
+        pbar.update(1)
+        for batch in range(n_batch):
+            batch_x, batch_y = mnist.train.next_batch(batch_size)
+            # 每100个batch算一下准确率
+            if batch%100==0:
+                train_accuracy = sess.run(accuracy, feed_dict={x: batch_x, y_: batch_y, keep_prob: 0.5})
+                print("step %d, training accuracy %g"%(batch, train_accuracy))
+            train_step.run(feed_dict={x: batch_x, y_: batch_y, keep_prob: 0.5})
+        total_acc = sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0})
+        print('> > > > > > > epoch %d test accuracy %g'%(epoch, total_acc))
+
+
+
+
+
+
+# for i in range(20000):
+#     batch = mnist.train.next_batch(50)
+#     if i%100 == 0:
+#         # print(batch[1].shape)
+#         train_accuracy = accuracy.eval(feed_dict={
+#             x: batch[0], y_: batch[1], keep_prob: 1.0})
+#         print("step %d, training accuracy %g"%(i, train_accuracy))
+#     train_step.run(feed_dict={x: batch[0], y_: batch[1], keep_prob: 0.5})
+#
+# print("test accuracy %g"%accuracy.eval(feed_dict={
+#     x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0}))

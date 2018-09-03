@@ -79,7 +79,7 @@ h_pool2_shape = h_pool2.get_shape()
 nodes_fc1 = h_pool2_shape[1]*h_pool2_shape[2]*h_pool2_shape[3]
 h_pool2_flat = tf.reshape(h_pool2, shape=[-1, nodes_fc1])
 # h_pool2_flat = tf.reshape(h_pool2, shape=[h_pool2_shape[0], nodes_fc1])
-W_fc1 = weight_variable(shape=[nodes_fc1.value,1024])
+W_fc1 = weight_variable(shape=[nodes_fc1.value, 1024])
 b_fc1 = bias_variable(shape=[1024])
 h_fc1 = tf.nn.elu(tf.nn.bias_add(tf.matmul(h_pool2_flat, W_fc1), b_fc1))
 # 添加dropout
