@@ -123,5 +123,7 @@ with tf.Session() as sess:
                 train_accuracy = sess.run(accuracy, feed_dict={x: batch_x, y_: batch_y, keep_prob: 0.5})
                 print("step %d, training accuracy %g"%(batch, train_accuracy))
             train_step.run(feed_dict={x: batch_x, y_: batch_y, keep_prob: 0.5})
-        total_acc = accuracy.run(feed_dict={x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0})
+        total_acc = sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0})
         print('> > > > > > > epoch %d test accuracy %g'%(epoch, total_acc))
+
+
