@@ -33,7 +33,7 @@ class QunaSpider(object):
         while True:
             try:
                 WebDriverWait(driver, 10).until(
-                    EC.title_contains(unicode(to_city))
+                    EC.title_contains(str(to_city))
                 )
             except Exception as e:
                 print(e)
@@ -47,7 +47,7 @@ class QunaSpider(object):
             htm_const = driver.page_source
             soup = BeautifulSoup(htm_const,'html.parser', from_encoding='utf-8')
             infos = soup.find_all(class_="item_hotel_info")
-            f = codecs.open(unicode(to_city)+unicode(fromdate)+u'.html', 'a', 'utf-8')
+            f = codecs.open(str(to_city)+str(fromdate)+u'.html', 'a', 'utf-8')
             for info in infos:
                 f.write(str(page_num)+'--'*50)
                 content = info.get_text().replace(" ","").replace("\t","").strip()
@@ -62,8 +62,8 @@ class QunaSpider(object):
                 next_page.click()
                 page_num+=1
                 time.sleep(10)
-            except Exception,e:
-                print e
+            except Exception as e:
+                print(e)
                 break
 
     def crawl(self,root_url,to_city):
