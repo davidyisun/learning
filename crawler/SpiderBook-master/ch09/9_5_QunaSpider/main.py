@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 #coding:utf-8
 # import datetime
 import codecs
@@ -34,8 +35,8 @@ class QunaSpider(object):
                 WebDriverWait(driver, 10).until(
                     EC.title_contains(unicode(to_city))
                 )
-            except Exception,e:
-                print e
+            except Exception as e:
+                print(e)
                 break
             time.sleep(5)
 
@@ -80,4 +81,5 @@ class QunaSpider(object):
 if __name__=='__main__':
     spider = QunaSpider()
     spider.crawl('http://hotel.qunar.com/',u"上海")
+    pass
 
