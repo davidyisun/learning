@@ -80,6 +80,6 @@ class QunaSpider(object):
 
 if __name__=='__main__':
     spider = QunaSpider()
-    spider.crawl('http://hotel.qunar.com/',u"上海")
-    pass
+    spider.crawl('http://hotel.qunar.com/', u"上海")
+
 
