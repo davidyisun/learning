@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
     脚本名: PTB 语言模型
-Created on 2018-09-11
+Created on 2018-09-12
 @author:David Yisun
 @group:data
 """
@@ -160,5 +160,47 @@ def make_batches(id_list, batch_size, num_step):
     return list(zip(data_batches, label_batches))
 
 
+# 4.主函数
+def main():
+    # 定义初始化函数。
+    initializer = tf.random_uniform_initializer(-0.05, 0.05)
 
+    # 定义训练用的循环神经网络模型。
+    with tf.variable_scope("language_model",
+                           reuse=None, initializer=initializer):
+        train_model = PTBModel(True, TRAIN_BATCH_SIZE, TRAIN_NUM_STEP)
+
+    # 定义测试用的循环神经网络模型。它与train_model共用参数，但是没有dropout。
+    with tf.variable_scope("language_model",
+                           reuse=True, initializer=initializer):
+        eval_model = PTBModel(False, EVAL_BATCH_SIZE, EVAL_NUM_STEP)
+
+    # 训练模型。
+    with tf.Session() as session:
+        tf.global_variables_initializer().run()
+        train_batches = make_batches(
+            read_data(TRAIN_DATA), TRAIN_BATCH_SIZE, TRAIN_NUM_STEP)
+        eval_batches = make_batches(
+            read_data(EVAL_DATA), EVAL_BATCH_SIZE, EVAL_NUM_STEP)
+        test_batches = make_batches(
+            read_data(TEST_DATA), EVAL_BATCH_SIZE, EVAL_NUM_STEP)
+
+        step = 0
+        for i in range(NUM_EPOCH):
+            print("In iteration: %d" % (i + 1))
+            step, train_pplx = run_epoch(session, train_model, train_batches,
+                                         train_model.train_op, True, step)
+            print("Epoch: %d Train Perplexity: %.3f" % (i + 1, train_pplx))
+
+            _, eval_pplx = run_epoch(session, eval_model, eval_batches,
+                                     tf.no_op(), False, 0)
+            print("Epoch: %d Eval Perplexity: %.3f" % (i + 1, eval_pplx))
+
+        _, test_pplx = run_epoch(session, eval_model, test_batches,
+                                 tf.no_op(), False, 0)
+        print("Test Perplexity: %.3f" % test_pplx)
+
+
+if __name__ == "__main__":
+    main()
 
