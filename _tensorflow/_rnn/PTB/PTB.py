@@ -94,12 +94,12 @@ class PTBModel(object):
         # 只在训练模型时定义反向传播操作。
         if not is_training: return
 
-        trainable_variables = tf.trainable_variables()
+        trainable_variables = tf.trainable_variables()  # 获取需要训练的变量列表
         # 控制梯度大小，定义优化方法和训练步骤。  tf.clip_by_global_norm()  梯度剪裁
         grads, _ = tf.clip_by_global_norm(tf.gradients(self.cost, trainable_variables),
                                           MAX_GRAD_NORM)
         optimizer = tf.train.GradientDescentOptimizer(learning_rate=1.0)
-        self.train_op = optimizer.apply_gradients(zip(grads, trainable_variables))
+        self.train_op = optimizer.apply_gradients(zip(grads, trainable_variables))  #  自由计算梯度
 
 
 # 3.定义数据和训练过程。
@@ -156,7 +156,20 @@ def make_batches(id_list, batch_size, num_step):
     label = np.reshape(label, [batch_size, num_batches * num_step])
     label_batches = np.split(label, num_batches, axis=1)
     # 返回一个长度为num_batches的数组，其中每一项包括一个data矩阵和一个label矩阵。
-    return list(zip(data_batches, label_batches))
+    return list(zip(data_batches, label_batches))    #  输出为 [(data, labele)] 的形式
+
+    """
+    [(array([[ 0,  1,  2,  3,  4],
+            [15, 16, 17, 18, 19],
+            [30, 31, 32, 33, 34],
+            [45, 46, 47, 48, 49],
+            [60, 61, 62, 63, 64]]), 
+      array([[ 1,  2,  3,  4,  5],
+            [16, 17, 18, 19, 20],
+            [31, 32, 33, 34, 35],
+            [46, 47, 48, 49, 50],
+            [61, 62, 63, 64, 65]]))]
+    """
 
 
 # 4.主函数
@@ -166,12 +179,12 @@ def main():
 
     # 定义训练用的循环神经网络模型。
     with tf.variable_scope("language_model",
-                           reuse=None, initializer=initializer):
+                           reuse=None,
+                           initializer=initializer):
         train_model = PTBModel(True, TRAIN_BATCH_SIZE, TRAIN_NUM_STEP)
 
     # 定义测试用的循环神经网络模型。它与train_model共用参数，但是没有dropout。
-    with tf.variable_scope("language_model",
-                           reuse=True, initializer=initializer):
+    with tf.variable_scope("language_model", reuse=True, initializer=initializer):
         eval_model = PTBModel(False, EVAL_BATCH_SIZE, EVAL_NUM_STEP)
 
     # 训练模型。
@@ -187,17 +200,23 @@ def main():
         step = 0
         for i in range(NUM_EPOCH):
             print("In iteration: %d" % (i + 1))
-            step, train_pplx = run_epoch(session, train_model, train_batches,
-                                         train_model.train_op, True, step)
+            step, train_pplx = run_epoch(session,
+                                         train_model,
+                                         train_batches,
+                                         train_model.train_op,
+                                         True,
+                                         step)
             print("Epoch: %d Train Perplexity: %.3f" % (i + 1, train_pplx))
 
-            _, eval_pplx = run_epoch(session, eval_model, eval_batches,
-                                     tf.no_op(), False, 0)
+            _, eval_pplx = run_epoch(session, eval_model, eval_batches, tf.no_op(), False, 0)
             print("Epoch: %d Eval Perplexity: %.3f" % (i + 1, eval_pplx))
 
         _, test_pplx = run_epoch(session, eval_model, test_batches,
                                  tf.no_op(), False, 0)
         print("Test Perplexity: %.3f" % test_pplx)
+
+        # 保存模型
+        saver = tf.train.Saver(session, '../../models/PTB.train')
 
 
 if __name__ == "__main__":
