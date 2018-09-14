@@ -187,6 +187,9 @@ def main():
     with tf.variable_scope("language_model", reuse=True, initializer=initializer):
         eval_model = PTBModel(False, EVAL_BATCH_SIZE, EVAL_NUM_STEP)
 
+    # 保存模型
+    saver = tf.train.Saver()
+
     # 训练模型。
     with tf.Session() as session:
         tf.global_variables_initializer().run()
@@ -216,7 +219,7 @@ def main():
         print("Test Perplexity: %.3f" % test_pplx)
 
         # 保存模型
-        saver = tf.train.Saver(session, '../../models/PTB.train')
+        saver.save(session, '../../models/PTB.train')
 
 
 if __name__ == "__main__":
