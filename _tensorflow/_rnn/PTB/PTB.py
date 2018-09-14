@@ -82,25 +82,24 @@ class PTBModel(object):
         else:
             weight = tf.get_variable("weight", [HIDDEN_SIZE, VOCAB_SIZE])
         bias = tf.get_variable("bias", [VOCAB_SIZE])
-        logits = tf.matmul(output, weight) + bias
+        logits = tf.matmul(output, weight) + bias    # logits 是输出
 
         # 定义交叉熵损失函数和平均损失。
         loss = tf.nn.sparse_softmax_cross_entropy_with_logits(
             labels=tf.reshape(self.targets, [-1]),
             logits=logits)
-        self.cost = tf.reduce_sum(loss) / batch_size
+        self.cost = tf.reduce_sum(loss) / batch_size  # 平均损失
         self.final_state = state
 
         # 只在训练模型时定义反向传播操作。
         if not is_training: return
 
         trainable_variables = tf.trainable_variables()
-        # 控制梯度大小，定义优化方法和训练步骤。
-        grads, _ = tf.clip_by_global_norm(
-            tf.gradients(self.cost, trainable_variables), MAX_GRAD_NORM)
+        # 控制梯度大小，定义优化方法和训练步骤。  tf.clip_by_global_norm()  梯度剪裁
+        grads, _ = tf.clip_by_global_norm(tf.gradients(self.cost, trainable_variables),
+                                          MAX_GRAD_NORM)
         optimizer = tf.train.GradientDescentOptimizer(learning_rate=1.0)
-        self.train_op = optimizer.apply_gradients(
-            zip(grads, trainable_variables))
+        self.train_op = optimizer.apply_gradients(zip(grads, trainable_variables))
 
 
 # 3.定义数据和训练过程。
@@ -109,15 +108,15 @@ def run_epoch(session, model, batches, train_op, output_log, step):
     # 计算平均perplexity的辅助变量。
     total_costs = 0.0
     iters = 0
-    state = session.run(model.initial_state)
+    state = session.run(model.initial_state)   # 初始化 state
     # 训练一个epoch。
     for x, y in batches:
         # 在当前batch上运行train_op并计算损失值。交叉熵损失函数计算的就是下一个单
         # 词为给定单词的概率。
-        cost, state, _ = session.run(
-             [model.cost, model.final_state, train_op],
-             {model.input_data: x, model.targets: y,
-              model.initial_state: state})
+        cost, state, _ = session.run([model.cost, model.final_state, train_op],
+                                     {model.input_data: x,
+                                      model.targets: y,
+                                      model.initial_state: state})
         total_costs += cost
         iters += model.num_steps
 
