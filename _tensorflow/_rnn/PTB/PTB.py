@@ -174,6 +174,14 @@ def make_batches(id_list, batch_size, num_step):
 
 # 4.主函数
 def main():
+    # 数据读入
+    train_batches = make_batches(
+        read_data(TRAIN_DATA), TRAIN_BATCH_SIZE, TRAIN_NUM_STEP)
+    eval_batches = make_batches(
+        read_data(EVAL_DATA), EVAL_BATCH_SIZE, EVAL_NUM_STEP)
+    test_batches = make_batches(
+        read_data(TEST_DATA), EVAL_BATCH_SIZE, EVAL_NUM_STEP)
+
     # 定义初始化函数。
     initializer = tf.random_uniform_initializer(-0.05, 0.05)
 
@@ -193,13 +201,6 @@ def main():
     # 训练模型。
     with tf.Session() as session:
         tf.global_variables_initializer().run()
-        train_batches = make_batches(
-            read_data(TRAIN_DATA), TRAIN_BATCH_SIZE, TRAIN_NUM_STEP)
-        eval_batches = make_batches(
-            read_data(EVAL_DATA), EVAL_BATCH_SIZE, EVAL_NUM_STEP)
-        test_batches = make_batches(
-            read_data(TEST_DATA), EVAL_BATCH_SIZE, EVAL_NUM_STEP)
-
         step = 0
         for i in range(NUM_EPOCH):
             print("In iteration: %d" % (i + 1))

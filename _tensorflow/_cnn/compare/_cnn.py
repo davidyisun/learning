@@ -98,16 +98,16 @@ W_fc1 = weight_variable([7 * 7 * 64, 1024])
 b_fc1 = bias_variable([1024])
 h_pool2_flat = tf.reshape(h_pool2, [-1, 7*7*64])
 h_fc1 = tf.nn.elu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
-keep_prob = tf.placeholder(tf.float32) # 这里使用了drop out,即随机安排一些cell输出值为0，可以防止过拟合
+keep_prob = tf.placeholder(tf.float32)  # 这里使用了drop out,即随机安排一些cell输出值为0，可以防止过拟合
 h_fc1_drop = tf.nn.dropout(h_fc1, keep_prob)
 
 # 第四层，输入1024维，输出10维，也就是具体的0~9分类
 W_fc2 = weight_variable([1024, 10])
 b_fc2 = bias_variable([10])
-y_conv=tf.nn.softmax(tf.matmul(h_fc1_drop, W_fc2) + b_fc2) # 使用softmax作为多分类激活函数
+y_conv=tf.nn.softmax(tf.matmul(h_fc1_drop, W_fc2) + b_fc2)  # 使用softmax作为多分类激活函数
 y_ = tf.placeholder(tf.float32, [None, 10])
 
-cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(y_conv), reduction_indices=[1])) # 损失函数，交叉熵
+cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(y_conv), reduction_indices=[1]))  # 损失函数，交叉熵
 train_step = tf.train.AdamOptimizer(1e-4).minimize(cross_entropy)  # 使用adam优化
 correct_prediction = tf.equal(tf.argmax(y_conv, 1), tf.argmax(y_, 1))  # 计算准确度
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
