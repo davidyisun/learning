@@ -11,8 +11,8 @@ import codecs
 import collections
 from operator import itemgetter
 
-RAW_DATA = "./data/ptb.train.txt"  # 训练集数据文件
-VOCAB_OUTPUT = "ptb.vocab"  # 输出的词汇表文件
+RAW_DATA = "./data/train.txt.zh"  # 训练集数据文件
+VOCAB_OUTPUT = "zh.vocab"  # 输出的词汇表文件
 VOCAB_SIZE = 4000  # 中文词表词汇长度
 
 
