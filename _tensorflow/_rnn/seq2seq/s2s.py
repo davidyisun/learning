@@ -11,6 +11,7 @@ import codecs
 import collections
 from operator import itemgetter
 
+
 # ---- 文本预处理参数 ----
 RAW_DATA = "./data/train.txt.zh"  # 训练集数据文件
 VOCAB_OUTPUT = "zh.vocab"  # 输出的词汇表文件
@@ -65,5 +66,7 @@ def generated_train_dataset():
 
 
 
+
 if __name__ == '__main__':
     pass
+
