@@ -8,6 +8,7 @@ Created on 2018-09-20
 """
 import tensorflow as tf
 import codecs
+import tqdm
 
 
 # 1.参数设置。
@@ -240,12 +241,16 @@ def main():
     # 训练模型。
     saver = tf.train.Saver()
     step = 0
+
+    pbar = tqdm.tqdm(list(range(para.num_epoch)))
     with tf.Session() as sess:
         tf.global_variables_initializer().run()
         for i in range(para.num_epoch):
+            pbar.set_description('epoch {0}'.format(i+1))
             print("In iteration: %d" % (i + 1))
             sess.run(iterator.initializer)
             step = run_epoch(sess, cost_op, train_op, saver, step)
+            pbar.update(1)
 
 
 if __name__ == '__main__':
