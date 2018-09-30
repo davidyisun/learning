@@ -164,8 +164,8 @@ class NMTModel(object):
             dec_outputs, _ = tf.nn.dynamic_rnn(cell=self.dec_cell,
                                                inputs=trg_emb,
                                                sequence_length=trg_size,
-                                               initial_state=enc_state)
-        # 计算解码器每一步的log perplexity。
+                                               initial_state=enc_state)    # 将enc_state(由编码器的最后一个time_step组成的LSTMStateTuple('c', 'h'))作为解码器的初始状态
+        # 计算解码器每一步的log perplexity。  计算的是解码器的loss
         output = tf.reshape(dec_outputs, [-1, para.hidden_size])
         logits = tf.matmul(output, self.softmax_weight)+self.softmax_bias
         loss = tf.nn.sparse_softmax_cross_entropy_with_logits(labels=tf.reshape(trg_label, [-1]), logits=logits)

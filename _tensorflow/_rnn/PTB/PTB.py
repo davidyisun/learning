@@ -14,7 +14,7 @@ TRAIN_DATA = "ptb.train"          # 训练数据路径。
 EVAL_DATA = "ptb.valid"           # 验证数据路径。
 TEST_DATA = "ptb.test"            # 测试数据路径。
 HIDDEN_SIZE = 300                 # 隐藏层规模。
-NUM_LAYERS = 2                    # 深层循环神经网络中LSTM结构的层数。
+NUM_LAYERS = 3                    # 深层循环神经网络中LSTM结构的层数。
 VOCAB_SIZE = 10000                # 词典规模。
 TRAIN_BATCH_SIZE = 20             # 训练数据batch的大小。
 TRAIN_NUM_STEP = 35               # 训练数据截断长度。
@@ -51,30 +51,29 @@ class PTBModel(object):
 
         # 初始化最初的状态，即全零的向量。这个量只在每个epoch初始化第一个batch
         # 时使用。
-        self.initial_state = cell.zero_state(batch_size, tf.float32)
+        self.initial_state = cell.zero_state(batch_size, tf.float32)  # state 由lstm层个数的 [batch_size, hidden] 组成的tuple,  其中 state 的最后一层  表示各batch的最后一个step的output
 
         # 定义单词的词向量矩阵。
         embedding = tf.get_variable("embedding", [VOCAB_SIZE, HIDDEN_SIZE])
 
         # 将输入单词转化为词向量。
-        inputs = tf.nn.embedding_lookup(embedding, self.input_data)
+        inputs = tf.nn.embedding_lookup(embedding, self.input_data)   # 经过embedding_lookup之后 有 20*35 变为 20*35*300  将每一个词映射成一个词向量
 
         # 只在训练时使用dropout。
         if is_training:
             inputs = tf.nn.dropout(inputs, EMBEDDING_KEEP_PROB)
 
-        # 定义输出列表。在这里先将不同时刻LSTM结构的输出收集起来，再一起提供给
-        # softmax层。
+        # 定义输出列表。在这里先将不同时刻LSTM结构的输出收集起来，再一起提供给softmax层。
         outputs = []
         state = self.initial_state
         with tf.variable_scope("RNN"):
             for time_step in range(num_steps):
                 if time_step > 0: tf.get_variable_scope().reuse_variables()
-                cell_output, state = cell(inputs[:, time_step, :], state)
-                outputs.append(cell_output)
-                # 把输出队列展开成[batch, hidden_size*num_steps]的形状，然后再
+                cell_output, state = cell(inputs[:, time_step, :], state)      # time_step 表示一句话中第time_step个词语 cell_output 由 [batch, hidden] 组成 表示 各个batch下个step的输出
+                outputs.append(cell_output)       # 实际上 outputs和states得到的是 step个 [batch_size,  hideden] 组成的list
+        # 把输出队列展开成[batch, hidden_size*num_steps]的形状，然后再
         # reshape成[batch*numsteps, hidden_size]的形状。
-        output = tf.reshape(tf.concat(outputs, 1), [-1, HIDDEN_SIZE])
+        output = tf.reshape(tf.concat(outputs, 1), [-1, HIDDEN_SIZE])  # outputs是list
 
         # Softmax层：将RNN在每个位置上的输出转化为各个单词的logits。
         if SHARE_EMB_AND_SOFTMAX:
