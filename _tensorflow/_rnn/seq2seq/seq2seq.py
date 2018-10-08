@@ -18,19 +18,20 @@ class parameters():
         self.trg_train_data = './data/train.zh'  # 中文目标语言输入文件
         self.checkpoint_path = './model/seq2seq_ckpt'  # checkpoint保存路径
         # 模型参数
-        self.hidden_size = 1024           # lstm 隐藏层规模
-        self.num_layers = 2               # lstm 深层lstm层数
-        self.src_vocab_size = 10000       # 英文词表大小
-        self.trg_vocab_size = 4000        # 中文词表大小
-        self.batch_size = 100             # 训练数据batch的大小
-        self.num_epoch = 5                # 训练数据的轮数
-        self.keep_prob = 0.8              # dropout的保留程度
-        self.max_grad_norm = 5            # 控制梯度膨胀的梯度大小上限
-        self.share_emb_and_softmax = True # 在softmax层和隐藏层之间共享参数
+        self.hidden_size = 1024            # lstm 隐藏层规模
+        self.num_layers = 2                # lstm 深层lstm层数
+        self.src_vocab_size = 10000        # 英文词表大小
+        self.trg_vocab_size = 4000         # 中文词表大小
+        self.batch_size = 100              # 训练数据batch的大小
+        self.num_epoch = 5                 # 训练数据的轮数
+        self.keep_prob = 0.8               # dropout的保留程度
+        self.max_grad_norm = 5             # 控制梯度膨胀的梯度大小上限
+        self.share_emb_and_softmax = True  # 在softmax层和隐藏层之间共享参数
         # 文本内容参数
-        self.max_len = 50                 # 限定句子的最大单词数量
-        self.sos_id = 1                   # 目标语言词表中<sos>的
+        self.max_len = 50                  # 限定句子的最大单词数量
+        self.sos_id = 1                    # 目标语言词表中<sos>的
 
+        pass
 para = parameters()
 
 
