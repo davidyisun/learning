@@ -8,15 +8,12 @@ Created on 2018--
 """
 import codecs
 import chardet
-import sys
-reload(sys)
-sys.setdefaultencoding("utf-8")
 
 
 # 根据中文词汇表, 将翻译结果转换为中文文字
 with codecs.open('./data/zh.vocab', 'rb', 'utf8') as f_vocab:
-    trg_vocab = [w.strip().encode('utf-8') for w in f_vocab.readlines()]
-print(trg_vocab[20].decode('utf-8'))
+    trg_vocab = [w.strip().encode('latin1') for w in f_vocab.readlines()]
+print(trg_vocab[20].decode('latin1'))
 output_ids = [19, 13, 9, 0]
 # output_text = ' '.join([trg_vocab[x] for x in output_ids])
 # print(type(output_text))
