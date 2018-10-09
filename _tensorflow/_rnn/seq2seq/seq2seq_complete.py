@@ -381,4 +381,6 @@ if __name__ == '__main__':
     # get_vocab(path='./data/zh.vocab')
     # MakeDataset(file_path=para.trg_train_data)
     # train_main()
-    predict_main()
+    # predict_main()
+    c = input()
+    print(c.FLags.en_sentence)
