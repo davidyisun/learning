@@ -369,7 +369,7 @@ def predict_main():
     # 根据中文词汇表, 将翻译结果转换为中文文字
     with codecs.open(para_predict.trg_vocab, 'r', 'utf-8') as f_vocab:
         trg_vocab = [w.strip() for w in f_vocab.readlines()]
-    output_text = ''.join([trg_vocab[x] for x in output_ids])
+    output_text = [trg_vocab[x] for x in output_ids]
 
     # 输出翻译结果
     # print(output_text.encode('utf8').decode(sys.stdout.encoding))
@@ -386,5 +386,5 @@ if __name__ == '__main__':
     print('---'*20)
     print(test_en_text)
     print(test_en_ids)
-    print(output_text.encode('utf-8').decode(sys.stdout.encoding))
-    # print(output_text)
+    # print(output_text.encode('utf-8').decode(sys.stdout.encoding))
+    print(output_text)
