@@ -348,8 +348,8 @@ def predict_main():
     flags = input()
     test_en_text = flags.FLags.en_sentence
     # 根据英文词汇表, 将句子转为单词id
-    with codecs.open(predict_parameters.src_vocab, 'r', 'utf-8') as f_vovab:
-        src_vocab = [w.strip() for w in f_vovab.readlines()]
+    with codecs.open(predict_parameters.src_vocab, 'r', 'utf-8') as f_vocab:
+        src_vocab = [w.strip() for w in f_vocab.readlines()]
         if '<eos>' not in src_vocab:
             src_vocab.append('<eos>')
         src_id_dict = dict((src_vocab[x], x) for x in range(len(src_vocab)))
@@ -368,7 +368,7 @@ def predict_main():
 
     # 根据中文词汇表, 将翻译结果转换为中文文字
     with codecs.open(para_predict.trg_vocab, 'r', 'utf-8') as f_vocab:
-        trg_vocab = [w.strip() for w in f_vovab.readlines()]
+        trg_vocab = [w.strip() for w in f_vocab.readlines()]
     output_text = ''.join([trg_vocab[x] for x in output_ids])
 
     # 输出翻译结果
