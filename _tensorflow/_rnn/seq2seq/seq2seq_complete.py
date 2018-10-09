@@ -386,5 +386,5 @@ if __name__ == '__main__':
     print('---'*20)
     print(test_en_text)
     print(test_en_ids)
-    # print(output_text.encode('utf-8').decode(sys.stdout.encoding))
-    print(output_text)
+    print(output_text.encode('utf-8'))
+    # print(output_text)
