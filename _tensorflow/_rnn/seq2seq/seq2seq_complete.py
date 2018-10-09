@@ -355,7 +355,7 @@ def predict_main():
         src_id_dict = dict((src_vocab[x], x) for x in range(len(src_vocab)))
     test_en_ids = [(src_id_dict[token] if token in src_id_dict else src_id_dict['<unk>']) for token in test_en_text.split()]
 
-    print(test_en_ids)
+    # print(test_en_ids)
 
     # 建立解码所需的计算图
     output_op = model.inference(test_en_ids)
@@ -372,7 +372,8 @@ def predict_main():
     output_text = ''.join([trg_vocab[x] for x in output_ids])
 
     # 输出翻译结果
-    print(output_text.encode('utf8').decode(sys.stdout.encoding))
+    # print(output_text.encode('utf8').decode(sys.stdout.encoding))
+    return test_en_text, test_en_ids, output_text
 
 
 
@@ -381,4 +382,8 @@ if __name__ == '__main__':
     # get_vocab(path='./data/zh.vocab')
     # MakeDataset(file_path=para.trg_train_data)
     # train_main()
-    predict_main()
+    test_en_text, test_en_ids, output_text = predict_main()
+    print('---'*20)
+    print(test_en_text)
+    print(test_en_ids)
+    print(output_text)
