@@ -24,7 +24,7 @@ class parameters():
     def __init__(self):
         self.src_train_data = './data/train.en'  # 英文源语言输入文件
         self.trg_train_data = './data/train.zh'  # 中文目标语言输入文件
-        self.checkpoint_path = '../../../../../model/seq2seq/seq2seq_ckpt'  # checkpoint保存路径
+        self.checkpoint_path = '../../../../model/seq2seq/seq2seq_ckpt'  # checkpoint保存路径
         # 模型参数
         self.hidden_size = 1024  # lstm 隐藏层规模
         self.num_layers = 2  # lstm 深层lstm层数
@@ -42,19 +42,19 @@ class parameters():
 
 
 class predict_parameters():
-        checkpoint_path = '../../../../../model/seq2seq/seq2seq_ckpt-9000'  # 读取checkpoint的路径。9000表示是训练程序在第9000步保存的checkpoint
-        # 模型参数 必须 和训练模型参数保持一致
-        hidden_size = 1024  # lstm的隐藏层规模
-        num_layers = 2  # 深层循环神经网络中lstm结构的层数
-        src_vocab_size = 10000  # 源语言词汇表大小
-        trg_vocab_size = 4000  # 目标语言词汇表大小
-        share_emb_and_softmax = True  # 在softmax层和词向量层之间共享参数
-        # 词汇表文件
-        src_vocab = './data/en.vocab'
-        trg_vocab = './data/zh.vocab'
-        # 词汇表中<sos>和<eos>的ID，在解码过程中需要用<sos>作为第一步的输入, 并将检查是否是<eos>，因此需要知道这两个符号的ID
-        sos_id = 1
-        eos_id = 2
+    checkpoint_path = '../../../../model/seq2seq/seq2seq_ckpt-9000'  # 读取checkpoint的路径。9000表示是训练程序在第9000步保存的checkpoint
+    # 模型参数 必须 和训练模型参数保持一致
+    hidden_size = 1024  # lstm的隐藏层规模
+    num_layers = 2  # 深层循环神经网络中lstm结构的层数
+    src_vocab_size = 10000  # 源语言词汇表大小
+    trg_vocab_size = 4000  # 目标语言词汇表大小
+    share_emb_and_softmax = True  # 在softmax层和词向量层之间共享参数
+    # 词汇表文件
+    src_vocab = './data/en.vocab'
+    trg_vocab = './data/zh.vocab'
+    # 词汇表中<sos>和<eos>的ID，在解码过程中需要用<sos>作为第一步的输入, 并将检查是否是<eos>，因此需要知道这两个符号的ID
+    sos_id = 1
+    eos_id = 2
 
 
 para = parameters()
