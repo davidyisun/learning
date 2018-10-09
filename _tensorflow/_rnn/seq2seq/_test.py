@@ -10,6 +10,7 @@ import codecs
 import chardet
 import sys
 
+
 # 根据中文词汇表, 将翻译结果转换为中文文字
 with codecs.open('./data/zh.vocab', 'rb', 'utf8') as f_vocab:
     trg_vocab = [w.strip() for w in f_vocab.readlines()]
