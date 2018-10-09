@@ -24,7 +24,7 @@ class parameters():
     def __init__(self):
         self.src_train_data = './data/train.en'  # 英文源语言输入文件
         self.trg_train_data = './data/train.zh'  # 中文目标语言输入文件
-        self.checkpoint_path = './model/seq2seq_ckpt'  # checkpoint保存路径
+        self.checkpoint_path = '../../../../../model/seq2seq/seq2seq_ckpt'  # checkpoint保存路径
         # 模型参数
         self.hidden_size = 1024  # lstm 隐藏层规模
         self.num_layers = 2  # lstm 深层lstm层数
@@ -42,7 +42,7 @@ class parameters():
 
 
 class predict_parameters():
-        checkpoint_path = './model/seq2seq_ckpt-9000'  # 读取checkpoint的路径。9000表示是训练程序在第9000步保存的checkpoint
+        checkpoint_path = '../../../../../model/seq2seq/seq2seq_ckpt-9000'  # 读取checkpoint的路径。9000表示是训练程序在第9000步保存的checkpoint
         # 模型参数 必须 和训练模型参数保持一致
         hidden_size = 1024  # lstm的隐藏层规模
         num_layers = 2  # 深层循环神经网络中lstm结构的层数
@@ -381,6 +381,4 @@ if __name__ == '__main__':
     # get_vocab(path='./data/zh.vocab')
     # MakeDataset(file_path=para.trg_train_data)
     # train_main()
-    # predict_main()
-    c = input()
-    print(c.FLags.en_sentence)
+    predict_main()
