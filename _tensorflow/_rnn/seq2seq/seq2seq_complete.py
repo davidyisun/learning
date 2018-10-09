@@ -387,5 +387,5 @@ if __name__ == '__main__':
     print(test_en_text)
     print(test_en_ids)
     output_text = ''.join(output_text)
-    print(output_text.encode('utf-8').decode('gbk'))
+    print(output_text.encode('utf-8').decode(sys.getdefaultencoding()))
     # print(output_text)
