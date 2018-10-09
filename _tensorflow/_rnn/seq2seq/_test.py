@@ -19,7 +19,10 @@ output_ids = [19, 13, 9, 0]
 output_text = ' '.join([trg_vocab[x] for x in output_ids])
 # print(type(output_text))
 # print(output_text)
-# fenconding = chardet.detect(trg_vocab[0])
-# print(fenconding)
-print(sys.getdefaultencoding())
-print(sys.stdout.encoding)
+
+with codecs.open('./data/zh.vocab', 'rb', 'utf8') as f_vocab:
+    s = f_vocab.read().encode()
+fenconding = chardet.detect(s)
+print(fenconding)
+# print(sys.getdefaultencoding())
+# print(sys.stdout.encoding)
