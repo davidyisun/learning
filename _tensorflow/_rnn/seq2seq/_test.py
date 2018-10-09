@@ -9,6 +9,8 @@ Created on 2018--
 import codecs
 import chardet
 import sys
+reload(sys)
+sys.setdefaultencoding("utf-8")
 
 
 # 根据中文词汇表, 将翻译结果转换为中文文字
