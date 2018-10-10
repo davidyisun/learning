@@ -343,7 +343,6 @@ def predict_main():
     # 定义训练用的循环神经网络模型
     with tf.variable_scope('nmt_model', reuse=None):
         model = NMTModel()
-
     # 定义个测试句子
     flags = input()
     test_en_text = flags.FLags.en_sentence
