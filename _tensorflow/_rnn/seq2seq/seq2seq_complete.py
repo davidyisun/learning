@@ -112,7 +112,7 @@ def MakeSrcTrgDataset(src_path, trg_path, batch_size):
         trg_len_ok = tf.logical_and(tf.greater(trg_len, 1), tf.less_equal(trg_len, para.max_len))
         return tf.logical_and(src_len_ok, trg_len_ok)
 
-    dataset = dataset.filter(FilterLength)
+    dataset = dataset.filter(FilterLength)   # 根据条件过滤需要的数据
 
     #   1.解码器的输入(trg_input)，形式如同"<sos> X Y Z"
     #   2.解码器的目标输出(trg_label)，形式如同"X Y Z <eos>"
