@@ -36,7 +36,7 @@ class NMTModel(object):
         # --- 编码器 反向
         self.enc_cell_bw = tf.nn.rnn_cell.BasicLSTMCell(para.hidden_size)
         # --- 解码器
-        self.dec_cell = tf.nn.rnn_cell.MultiRNNCell([tf.nn.rnn_cell.BasicLSTMCell(para.hidden_size) for i in para.decoder_layers])
+        self.dec_cell = tf.nn.rnn_cell.MultiRNNCell([tf.nn.rnn_cell.BasicLSTMCell(para.hidden_size) for i in range(para.decoder_layers)])
 
         # 定义词向量
         self.src_embedding = tf.get_variable('src_emb', [para.src_vocab_size, para.hidden_size])

@@ -21,8 +21,8 @@ def MakeDateset(file_path):
 
 
 def MakeSrcTrgDataset(para):
-    src_data = MakeDateset(para.src_path)
-    trg_data = MakeDateset(para.trg_path)
+    src_data = MakeDateset(para.src_train_data)
+    trg_data = MakeDateset(para.trg_train_data)
     dataset = tf.data.Dataset.zip((src_data, trg_data))
     # 删除内容为空（只包含<eos>）和长度过长的句子
     def FilterLength(src_tuple, trg_tuple):
@@ -39,7 +39,7 @@ def MakeSrcTrgDataset(para):
     # 2.解码器目标输出 label 'x y z <eos>'
     def MakeTrgInput(src_tuple, trg_tuple):
         ((src_input, src_size), (trg_input, trg_size)) = (src_tuple, trg_tuple)
-        trg_lable = tf.concat([para.sos_id], trg_input[:-1], axis=0)
+        trg_lable = tf.concat([[para.sos_id], trg_input[:-1]], axis=0)
         res = ((src_input, src_size), (trg_input, trg_lable, trg_size))
         return res
 
