@@ -60,8 +60,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/data_preprocess.py" />
-        <option value="$PROJECT_DIR$/parameters.py" />
         <option value="$PROJECT_DIR$/attention.py" />
+        <option value="$PROJECT_DIR$/parameters.py" />
       </list>
     </option>
   </component>
