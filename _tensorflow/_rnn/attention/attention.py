@@ -116,7 +116,7 @@ class NMTModel(object):
 
     def inference(self, src_input):
         # 虽然只有一个句子，但因为dynamic_rnn要求输入时batch的形式，所以要将输入整理成batch_size为1的形式
-        src_size = tf.convert_to_tensor([len(src_input)])  # src 的size
+        src_size = tf.convert_to_tensor([len(src_input)], dtype=tf.int32)  # src 的size
         src_input = tf.convert_to_tensor([src_input], dtype=tf.int32)
 
         # embedding
@@ -129,7 +129,8 @@ class NMTModel(object):
                                                                     inputs=src_emb,
                                                                     sequence_length=src_size,
                                                                     dtype=tf.float32)
-
+        # --- 将两个lstm输出拼成一个tensor ---
+            enc_outputs = tf.concat([enc_outputs[0], enc_outputs[1]], -1)
         # --- attention ---
         with tf.variable_scope('decoder'):
             attention_mechanism = tf.contrib.seq2seq.BahdanauAttention(num_units=para.hidden_size,
