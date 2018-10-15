@@ -44,6 +44,7 @@ class para_predict(object):
     # 词汇表中<sos>和<eos>的id。在解码过程中需要用<sos>作为第一步的输入，并检查是否是<eos>，因此需要知道这两个符号的id
     sos_id = 1
     eos_id = 2
+    max_dec_len = 100  # 设置解码的最大步数。这是为了避免在极端情况出现无限循环的问题。
 
 p_train = para_train()
 p_predict = para_predict()

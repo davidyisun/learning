@@ -9,6 +9,7 @@ Created on 2018-10-10
 import tensorflow as tf
 import parameters
 import data_preprocess
+import codecs
 
 
 def get_para(type='en_to_zh', process='train'):
@@ -25,7 +26,7 @@ def get_para(type='en_to_zh', process='train'):
         p = para_predict
     return p
 
-para = get_para()
+para = get_para(type='test')
 
 
 class NMTModel(object):
@@ -113,6 +114,56 @@ class NMTModel(object):
             train_op = optimizer.apply_gradients(zip(grads, trainable_variables))
             return cost_per_token, train_op
 
+    def inference(self, src_input):
+        # 虽然只有一个句子，但因为dynamic_rnn要求输入时batch的形式，所以要将输入整理成batch_size为1的形式
+        src_size = tf.convert_to_tensor([len(src_input)])  # src 的size
+        src_input = tf.convert_to_tensor([src_input], dtype=tf.int32)
+
+        # embedding
+        src_emb = tf.nn.embedding_lookup(self.src_embedding, src_input)
+
+        # --- 编码 ---
+        with tf.variable_scope('encoder'):
+            enc_outputs, enc_state = tf.nn.bidirectional_dynamic_rnn(cell_fw=self.enc_cell_fw,
+                                                                    cell_bw=self.enc_cell_bw,
+                                                                    inputs=src_emb,
+                                                                    sequence_length=src_size,
+                                                                    dtype=tf.float32)
+
+        # --- attention ---
+        with tf.variable_scope('decoder'):
+            attention_mechanism = tf.contrib.seq2seq.BahdanauAttention(num_units=para.hidden_size,
+                                                                       memory=enc_outputs,
+                                                                       memory_sequence_length=src_size)
+            attention_cell = tf.contrib.seq2seq.AttentionWrapper(cell=self.dec_cell,
+                                                                 attention_mechanism=attention_mechanism,
+                                                                 attention_layer_size=para.hidden_size)
+        # --- 循环遍历解码 ---
+        with tf.variable_scope('decoder/rnn/attention_wrapper'):
+            init_array = tf.TensorArray(dtype=tf.int32, size=0, dynamic_size=True, clear_after_read=False)  # 使用变长的tensorarray来存储生成的句子
+            init_array = init_array.write(0, para.sos_id)
+            init_loop_var = (attention_cell.zero_state(batch_size=1, dtype=tf.float32), init_array, 0)
+
+            # tf.while_loop的循环条件：
+            # 循环直到解码器输出<eos>，或者达到最大步数为止。
+            def continue_loop_condition(state, trg_ids, step):
+                return tf.reduce_all(tf.logical_and(
+                    tf.not_equal(trg_ids.read(step), para.sos_id),
+                    tf.less(step, para.max_dec_len-1)))
+
+            def loop_body(state, trg_ids, step):
+                trg_input = [trg_ids.read(step)]
+                trg_emb = tf.nn.embedding_lookup(self.trg_embedding, trg_input)
+
+                # 调用attention_cell 向前计算一步。
+                dec_outputs, next_state = attention_cell.call(state=state, inputs=trg_emb)
+                output = tf.reshape(dec_outputs, [-1, para.hidden_size])
+                logits = (tf.matmul(output, self.softmax_weight))+self.softmax_bias
+                next_id = tf.argmax(logits, axis=1, output_type=tf.int32)
+                trg_ids = trg_ids.write(step+1, next_id[0])
+                return next_state, trg_ids, step+1
+            state, trg_ids, step = tf.while_loop(continue_loop_condition, loop_body, init_loop_var)
+            return trg_ids.stack()
 
 
 def run_epoch(session, cost_op, train_op, saver, step):
@@ -129,6 +180,7 @@ def run_epoch(session, cost_op, train_op, saver, step):
     return step
 
 
+# 训练过程
 def main_train():
     initializer = tf.random_uniform_initializer(minval=-0.05, maxval=0.05)  # 初始化函数
     # --- 数据 ---
@@ -159,9 +211,54 @@ def main_train():
                              step=step)
 
 
-def main_predict():
-    pass
+# 预测过程
+# --- 定义输入 ---
+class SentenceInput():
+    flags = tf.flags
+    flags.DEFINE_string('sentence_input', 'this is a book', 'str: the sentence needed to be translated')
+    Flags = flags.FLAGS
+
+
+# --- 获取词表 ---
+def get_vocab_id(path):
+    with codecs.open(path, 'r', 'utf-8') as f_vocab:
+        src_vocab = [w.strip() for w in f_vocab.readlines()]
+        if '<eos>' not in src_vocab:
+            src_vocab.append('<eos>')
+    id_dict = dict((src_vocab[x], x) for x in range(len(src_vocab)))
+    return id_dict
+
+
+def main_inference():
+    # --- 定义需要测试句子 and 根据词表id转换为编号 ---
+    flags = SentenceInput()
+    text_origin = flags.Flags.sentence_input
+    print('text input:{0}'.format(text_origin))
+    # --- 获取词表 ---
+    vocab_origin = get_vocab_id(path=para.src_vocab)
+    vocab_translate = get_vocab_id(path=para.trg_vocab)
+
+    ids_origin = [(vocab_origin[token] if token in vocab_origin else vocab_origin['<unk>']) for token in text_origin.strip()]
+    if '<eos>' not in text_origin:
+        ids_origin.append(vocab_origin['<eos>'])
+    print('id input:{0}'.format(ids_origin))
+    # --- 加载模型 ---
+    model = NMTModel()
+    # --- 建立解码所需要的计算图 ---
+    output_op = model.inference(src_input=ids_origin)
+    with tf.Session() as sess:
+        saver = tf.train.Saver()
+        saver.restore(sess=sess,
+                      save_path=para.checkpoint_path)
+        # 读取翻译结果
+        output_ids = sess.run(output_op)
+        print(output_ids)
+    # --- 由id转换为text ---
+    output_text = [vocab_translate[i] for i in output_ids]
+    print(output_text)
+    return text_origin, ids_origin, output_text
 
 
 if __name__ == '__main__':
-    main_train()
+    # main_train()
+    text_origin, ids_origin, output_text = main_inference()

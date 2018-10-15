@@ -15,7 +15,7 @@ import sys
 # 0.设置test输入
 class input():
     flags = tf.flags
-    flags.DEFINE_string('en_sentence', 'this is a book.', 'str: the sentence needed to translate.')
+    flags.DEFINE_string('en_sentence', 'this is a book.', 'str: the sentence needed to be translated.')
     FLags = flags.FLAGS
 
 
@@ -351,10 +351,10 @@ def predict_main():
     # 根据英文词汇表, 将句子转为单词id
     with codecs.open(predict_parameters.src_vocab, 'r', 'utf-8') as f_vocab:
         src_vocab = [w.strip() for w in f_vocab.readlines()]
-        if '<eos>' not in src_vocab:
-            src_vocab.append('<eos>')
         src_id_dict = dict((src_vocab[x], x) for x in range(len(src_vocab)))
     test_en_ids = [(src_id_dict[token] if token in src_id_dict else src_id_dict['<unk>']) for token in test_en_text.split()]
+    if '<eos>' not in test_en_text:
+        test_en_ids.append(src_id_dict['<eos>'])
 
     # print(test_en_ids)
 
@@ -375,8 +375,6 @@ def predict_main():
     # 输出翻译结果
     # print(output_text.encode('utf8').decode(sys.stdout.encoding))
     return test_en_text, test_en_ids, output_text
-
-
 
 
 if __name__ == '__main__':
