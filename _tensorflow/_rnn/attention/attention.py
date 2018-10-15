@@ -74,8 +74,8 @@ class NMTModel(object):
         with tf.variable_scope('decoder'):
             # 1.BahdanauAttention是使用一个隐藏层的前馈神经网络。BahdanauAttention是使用一个隐藏层的前馈神经网络。
             # 2.memory_sequence_length是一个维度为[batch_size]的张量，代表batch中每个句子的长度，Attention需要根据这个信息把填充位置的注意力权重设置为0。
-            attention_machanism = tf.contrib.seq2seq.BahdanauAttention(para.hidden_size,
-                                                                       enc_outputs,
+            attention_machanism = tf.contrib.seq2seq.BahdanauAttention(num_units=para.hidden_size,
+                                                                       memory=enc_outputs,
                                                                        memory_sequence_length=src_size)
             # 将解码器的循环神经网络self.dec_cell和注意力一起封装成更高层的循环神经网络
             attention_cell = tf.contrib.seq2seq.AttentionWrapper(self.dec_cell,

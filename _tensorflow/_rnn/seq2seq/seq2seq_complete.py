@@ -145,8 +145,10 @@ class NMTModel(object):
     # 在模型的初始化函数中定义模型要用到的变量。
     def __init__(self):
         # 定义编码器和解码器所使用的多层lstm结构
-        self.enc_cell = tf.nn.rnn_cell.MultiRNNCell([tf.nn.rnn_cell.BasicLSTMCell(para.hidden_size)] * para.num_layers)
-        self.dec_cell = tf.nn.rnn_cell.MultiRNNCell([tf.nn.rnn_cell.BasicLSTMCell(para.hidden_size)] * para.num_layers)
+        # self.enc_cell = tf.nn.rnn_cell.MultiRNNCell([tf.nn.rnn_cell.BasicLSTMCell(para.hidden_size)] * para.num_layers)
+        self.enc_cell = tf.nn.rnn_cell.MultiRNNCell([tf.nn.rnn_cell.BasicLSTMCell(para.hidden_size) for _ in range(para.num_layers)])
+        # self.dec_cell = tf.nn.rnn_cell.MultiRNNCell([tf.nn.rnn_cell.BasicLSTMCell(para.hidden_size)] * para.num_layers)
+        self.dec_cell = tf.nn.rnn_cell.MultiRNNCell([tf.nn.rnn_cell.BasicLSTMCell(para.hidden_size) for _ in range(para.num_layers) ])
 
         # 为源语言和目标语言分别定义词向量
         self.src_embedding = tf.get_variable('src_emb', [para.src_vocab_size, para.hidden_size])
@@ -380,11 +382,13 @@ def predict_main():
 if __name__ == '__main__':
     # get_vocab(path='./data/zh.vocab')
     # MakeDataset(file_path=para.trg_train_data)
-    # train_main()
-    test_en_text, test_en_ids, output_text = predict_main()
-    print('---'*20)
-    print(test_en_text)
-    print(test_en_ids)
-    output_text = ''.join(output_text)
+    # --- 预测 ---
+    # test_en_text, test_en_ids, output_text = predict_main()
+    # print('---'*20)
+    # print(test_en_text)
+    # print(test_en_ids)
+    # output_text = ''.join(output_text)
     # print(output_text.encode('ascii').decode(sys.getdefaultencoding()))
-    print(output_text)
+    # print(output_text)
+    # --- 训练 ---
+    train_main()
