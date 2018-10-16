@@ -115,5 +115,20 @@ def t2():
             # print(sess.run(tf.size(k)))
             pass
 
+
+def t3():
+    import tensorflow as tf
+    with tf.Session() as sess:
+        saver = tf.train.Saver()
+        saver.restore(sess=sess,
+                      save_path='../../../../model/attention/zh_to_en/attention_ckpt')
+        model_variables = tf.contrib.slim.get_variables()
+        restore_variables = [var for var in model_variables]
+        for var in restore_variables:
+            print(var.name)
+    pass
+
+
 if __name__ == '__main__':
-    t2()
+    # t2()
+    t3()
