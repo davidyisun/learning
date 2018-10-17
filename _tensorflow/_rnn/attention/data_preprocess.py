@@ -38,9 +38,9 @@ def MakeSrcTrgDataset(para):
     # 1.解码器输入 input '<sos> x y z'
     # 2.解码器目标输出 label 'x y z <eos>'
     def MakeTrgInput(src_tuple, trg_tuple):
-        ((src_input, src_size), (trg_input, trg_size)) = (src_tuple, trg_tuple)
-        trg_lable = tf.concat([[para.sos_id], trg_input[:-1]], axis=0)
-        res = ((src_input, src_size), (trg_input, trg_lable, trg_size))
+        ((src_input, src_size), (trg_label, trg_size)) = (src_tuple, trg_tuple)
+        trg_input = tf.concat([[para.sos_id], trg_label[:-1]], axis=0)
+        res = ((src_input, src_size), (trg_input, trg_label, trg_size))
         return res
 
     dataset = dataset.map(MakeTrgInput)

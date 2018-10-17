@@ -26,7 +26,7 @@ def get_para(type='en_to_zh', process='train'):
         p = para_predict
     return p
 
-para = get_para(process='train')
+para = get_para(process='inference')
 
 
 class NMTModel(object):
@@ -44,7 +44,7 @@ class NMTModel(object):
         self.trg_embedding = tf.get_variable('trg_emb', [para.trg_vocab_size, para.hidden_size])
 
         # 定义softmax层
-        if para.share_emb_and_softmax:  # 此处共享 是指与 embedding时的 weight 共享
+        if para.share_emb_and_softmax:  # 此处共享 是指与embedding时的 weight 共享
             self.softmax_weight = tf.transpose(self.trg_embedding)
         else:
             self.softmax_weight = tf.get_variable('weight', [para.hidden_size, para.trg_vocab_size])
@@ -216,19 +216,21 @@ def main_train():
 # --- 定义输入 ---
 class SentenceInput():
     flags = tf.flags
-    flags.DEFINE_string('sentence_input', 'this is a book', 'str: the sentence needed to be translated')
+    flags.DEFINE_string('sentence_input', 'how it possible', 'str: the sentence needed to be translated')
     Flags = flags.FLAGS
 
 
 # --- 获取词表 ---
-def get_vocab_id(path):
+def get_vocab_id(path, type='dict'):
     with codecs.open(path, 'r', 'utf-8') as f_vocab:
         src_vocab = [w.strip() for w in f_vocab.readlines()]
         if '<eos>' not in src_vocab:
             src_vocab.append('<eos>')
-    id_dict = dict((src_vocab[x], x) for x in range(len(src_vocab)))
-    return id_dict
-
+    if type=='dict':
+        id_dict = dict((src_vocab[x], x) for x in range(len(src_vocab)))
+        return id_dict
+    if type=='list':
+        return src_vocab
 
 def main_inference():
     # --- 定义需要测试句子 and 根据词表id转换为编号 ---
@@ -237,14 +239,14 @@ def main_inference():
     print('text input:{0}'.format(text_origin))
     # --- 获取词表 ---
     vocab_origin = get_vocab_id(path=para.src_vocab)
-    vocab_translate = get_vocab_id(path=para.trg_vocab)
-
-    ids_origin = [(vocab_origin[token] if token in vocab_origin else vocab_origin['<unk>']) for token in text_origin.strip()]
+    vocab_translate = get_vocab_id(path=para.trg_vocab, type='list')
+    ids_origin = [(vocab_origin[token] if token in vocab_origin else vocab_origin['<unk>']) for token in text_origin.strip().split()]
     if '<eos>' not in text_origin:
         ids_origin.append(vocab_origin['<eos>'])
     print('id input:{0}'.format(ids_origin))
     # --- 加载模型 ---
-    model = NMTModel()
+    with tf.variable_scope('nmt_model', reuse=None):
+        model = NMTModel()
     # --- 建立解码所需要的计算图 ---
     output_op = model.inference(src_input=ids_origin)
     with tf.Session() as sess:
@@ -260,6 +262,36 @@ def main_inference():
     return text_origin, ids_origin, output_text
 
 
+# ---- 参数检测 ----
+def test_saver():
+    # --- 定义需要测试句子 and 根据词表id转换为编号 ---
+    flags = SentenceInput()
+    text_origin = flags.Flags.sentence_input
+    print('text input:{0}'.format(text_origin))
+    # --- 获取词表 ---
+    vocab_origin = get_vocab_id(path=para.src_vocab)
+    vocab_translate = get_vocab_id(path=para.trg_vocab)
+
+    ids_origin = [(vocab_origin[token] if token in vocab_origin else vocab_origin['<unk>']) for token in text_origin.strip()]
+    if '<eos>' not in text_origin:
+        ids_origin.append(vocab_origin['<eos>'])
+    print('id input:{0}'.format(ids_origin))
+    # --- 加载模型 ---
+    with tf.variable_scope('nmt_model', reuse=None):
+        model = NMTModel()
+    # --- 建立解码所需要的计算图 ---
+    output_op = model.inference(src_input=ids_origin)
+    with tf.Session() as sess:
+        saver = tf.train.Saver()
+        saver.restore(sess, para.checkpoint_path)  # 加载模型
+        model_variables = tf.contrib.slim.get_variables()
+        restore_variables = [var for var in model_variables]
+        for var in restore_variables:
+            print(var.name)
+    return
+
+
 if __name__ == '__main__':
     main_train()
     # text_origin, ids_origin, output_text = main_inference()
+    # test_saver()

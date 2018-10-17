@@ -376,8 +376,39 @@ def predict_main():
     # print(output_text.encode('utf8').decode(sys.stdout.encoding))
     return test_en_text, test_en_ids, output_text
 
+# ---- 参数检测 ----
+def test_saver():
+    # 定义训练用的循环神经网络模型
+    with tf.variable_scope('nmt_model', reuse=None):
+        model = NMTModel()
+    # 定义个测试句子
+    flags = input()
+    test_en_text = flags.FLags.en_sentence
+    # 根据英文词汇表, 将句子转为单词id
+    with codecs.open(predict_parameters.src_vocab, 'r', 'utf-8') as f_vocab:
+        src_vocab = [w.strip() for w in f_vocab.readlines()]
+        src_id_dict = dict((src_vocab[x], x) for x in range(len(src_vocab)))
+    test_en_ids = [(src_id_dict[token] if token in src_id_dict else src_id_dict['<unk>']) for token in test_en_text.split()]
+    if '<eos>' not in test_en_text:
+        test_en_ids.append(src_id_dict['<eos>'])
+
+    # print(test_en_ids)
+
+    # 建立解码所需的计算图
+    output_op = model.inference(test_en_ids)
+    with tf.Session() as sess:
+        saver = tf.train.Saver()
+        saver.restore(sess, predict_parameters.checkpoint_path)  # 加载模型
+        model_variables = tf.contrib.slim.get_variables()
+        restore_variables = [var for var in model_variables]
+        for var in restore_variables:
+            print(var.name)
+    return
 
 if __name__ == '__main__':
+    """
+        在linux环境下 编码会有问题 使用 PYTHONIOENCODING=utf-8 python your_script.py 调用脚本
+    """
     # get_vocab(path='./data/zh.vocab')
     # MakeDataset(file_path=para.trg_train_data)
     # --- 预测 ---
@@ -386,7 +417,8 @@ if __name__ == '__main__':
     print(test_en_text)
     print(test_en_ids)
     output_text = ''.join(output_text)
-    # print(output_text.encode('ascii').decode(sys.getdefaultencoding()))
     print(output_text)
     # --- 训练 ---cd ../../..
     # train_main()
+    # --- 加载以保存模型的所有参数和变量 ---
+    # test_saver()
