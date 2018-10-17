@@ -381,12 +381,12 @@ if __name__ == '__main__':
     # get_vocab(path='./data/zh.vocab')
     # MakeDataset(file_path=para.trg_train_data)
     # --- 预测 ---
-    test_en_text, test_en_ids, output_text = predict_main()
+    # test_en_text, test_en_ids, output_text = predict_main()
     # print('---'*20)
     # print(test_en_text)
     # print(test_en_ids)
-    output_text = ''.join(output_text)
+    # output_text = ''.join(output_text)
     # print(output_text.encode('ascii').decode(sys.getdefaultencoding()))
-    print(output_text)
-    # --- 训练 ---
-    # train_main()
+    # print(output_text)
+    # --- 训练 ---cd ../../..
+    train_main()

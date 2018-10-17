@@ -118,10 +118,11 @@ def t2():
 
 def t3():
     import tensorflow as tf
+    import attention
     with tf.Session() as sess:
         saver = tf.train.Saver()
         saver.restore(sess=sess,
-                      save_path='../../../../model/attention/en_to_/attention_ckpt-8800')
+                      save_path='../../../../model/attention/en_to_zh/attention_ckpt-8800')
         model_variables = tf.contrib.slim.get_variables()
         restore_variables = [var for var in model_variables]
         for var in restore_variables:
