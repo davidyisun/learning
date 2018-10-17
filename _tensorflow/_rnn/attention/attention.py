@@ -261,5 +261,5 @@ def main_inference():
 
 
 if __name__ == '__main__':
-    # main_train()
-    text_origin, ids_origin, output_text = main_inference()
+    main_train()
+    # text_origin, ids_origin, output_text = main_inference()
