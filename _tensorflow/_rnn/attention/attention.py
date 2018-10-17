@@ -26,7 +26,7 @@ def get_para(type='en_to_zh', process='train'):
         p = para_predict
     return p
 
-para = get_para(process='test')
+para = get_para(process='train')
 
 
 class NMTModel(object):

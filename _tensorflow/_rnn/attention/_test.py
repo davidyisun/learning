@@ -119,6 +119,7 @@ def t2():
 def t3():
     import tensorflow as tf
     import attention
+    model = attention.NMTModel()
     with tf.Session() as sess:
         saver = tf.train.Saver()
         saver.restore(sess=sess,
@@ -129,7 +130,28 @@ def t3():
             print(var.name)
     pass
 
+def t4():
+    import tensorflow as tf
+    import attention
+    import data_preprocess
+    dataset = data_preprocess.MakeSrcTrgDataset(para=attention.para)
+    iterator = dataset.make_initializable_iterator()
+    z = iterator.get_next()
+    with tf.Session() as sess:
+        sess.run(tf.global_variables_initializer())
+        sess.run(iterator.initializer)
+        step = 0
+        while True:  # 符合dataset的方式运行
+            try:
+                print('------ step: {0} -------'.format(step))
+                sess.run(z)
+                step += 1
+            except tf.errors.OutOfRangeError:
+                break
+    print(step)
+    return
 
 if __name__ == '__main__':
     # t2()
-    t3()
+    # t3()
+    # t4()
