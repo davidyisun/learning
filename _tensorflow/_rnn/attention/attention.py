@@ -11,6 +11,14 @@ import parameters
 import data_preprocess
 import codecs
 
+class ParametersInput():
+    flags = tf.flags
+    flags.DEFINE_string('sentence_input', 'how it possible', 'str: the sentence needed to be translated')
+    flags.DEFINE_string('model_type', 'train', 'str: train or inference')
+    flags.DEFINE_string('method', 'en_to_zh', 'str: English to Chinese or Chinese to English')
+    Flags = flags.FLAGS
+
+outside_para = ParametersInput()
 
 def get_para(type='en_to_zh', process='train'):
     if type == 'en_to_zh':
@@ -26,7 +34,7 @@ def get_para(type='en_to_zh', process='train'):
         p = para_predict
     return p
 
-para = get_para(process='inference')
+para = get_para(type=outside_para.Flags.method, process=outside_para.Flags.model_type)
 
 
 class NMTModel(object):
@@ -214,10 +222,6 @@ def main_train():
 
 # 预测过程
 # --- 定义输入 ---
-class SentenceInput():
-    flags = tf.flags
-    flags.DEFINE_string('sentence_input', 'how it possible', 'str: the sentence needed to be translated')
-    Flags = flags.FLAGS
 
 
 # --- 获取词表 ---
@@ -234,8 +238,7 @@ def get_vocab_id(path, type='dict'):
 
 def main_inference():
     # --- 定义需要测试句子 and 根据词表id转换为编号 ---
-    flags = SentenceInput()
-    text_origin = flags.Flags.sentence_input
+    text_origin = outside_para.Flags.sentence_input
     print('text input:{0}'.format(text_origin))
     # --- 获取词表 ---
     vocab_origin = get_vocab_id(path=para.src_vocab)
