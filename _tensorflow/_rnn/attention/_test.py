@@ -121,7 +121,7 @@ def t3():
     with tf.Session() as sess:
         saver = tf.train.Saver()
         saver.restore(sess=sess,
-                      save_path='../../../../model/attention/zh_to_en/attention_ckpt-8800')
+                      save_path='../../../../model/attention/en_to_zh/attention_ckpt-8800')
         model_variables = tf.contrib.slim.get_variables()
         restore_variables = [var for var in model_variables]
         for var in restore_variables:
