@@ -30,7 +30,7 @@ class para_train(object):
 
 # --- 预测参数 ---
 class para_predict(object):
-    checkpoint_path = '../../../../model/attention/en_to_zh/attention_ckpt-5400'
+    checkpoint_path = '../../../../model/attention/en_to_zh/attention_ckpt-8800'
 
     hidden_size = 1024
     decoder_layers = 2
