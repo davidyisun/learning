@@ -265,10 +265,17 @@ def main_inference():
     return text_origin, ids_origin, output_text
 
 
+def main():
+    if outside_para.model_type == 'train':
+        main_train()
+    else:
+        main_inference()
+
+
 # ---- 参数检测 ----
 def test_saver():
     # --- 定义需要测试句子 and 根据词表id转换为编号 ---
-    flags = SentenceInput()
+    flags = outside_para.Flags.sentence_input
     text_origin = flags.Flags.sentence_input
     print('text input:{0}'.format(text_origin))
     # --- 获取词表 ---
@@ -295,6 +302,6 @@ def test_saver():
 
 
 if __name__ == '__main__':
-    main_train()
+    main()
     # text_origin, ids_origin, output_text = main_inference()
     # test_saver()
