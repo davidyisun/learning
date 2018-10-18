@@ -38,6 +38,7 @@ class parameters():
         # 文本内容参数
         self.max_len = 50  # 限定句子的最大单词数量
         self.sos_id = 1  # 目标语言词表中<sos>的
+        self.is_save = True  # 是否保存模型
         pass
 
 
@@ -98,7 +99,7 @@ def MakeDataset(file_path):
     return dataset
 
 
-def MakeSrcTrgDataset(src_path, trg_path, batch_size):
+def MakeSrcTrgDataset(src_path, trg_path, batch_size, is_shuffle=True):
     # 首先分别读取源语言和目标语言数据
     src_data = MakeDataset(src_path)
     trg_data = MakeDataset(trg_path)
@@ -126,7 +127,8 @@ def MakeSrcTrgDataset(src_path, trg_path, batch_size):
     dataset = dataset.map(MakeTrgInput)
 
     # 随机打乱训练数据。
-    dataset = dataset.shuffle(10000)
+    if is_shuffle:
+        dataset = dataset.shuffle(10000)
 
     # 规定填充后输出的数据维度。
     padded_shapes = (
@@ -297,7 +299,7 @@ def run_epoch(session, cost_op, train_op, saver, step):
             if step % 10 == 0:
                 print("After %d steps, per token cost is %.3f" % (step, cost))
             # 每200步保存一个checkpoint。
-            if step % 200 == 0:
+            if step % 200 == 0 and para.is_save:
                 saver.save(session, para.checkpoint_path, global_step=step)
             step += 1
         except tf.errors.OutOfRangeError:
@@ -377,7 +379,7 @@ def predict_main():
     return test_en_text, test_en_ids, output_text
 
 # ---- 参数检测 ----
-def test_saver():
+def _test_saver():
     # 定义训练用的循环神经网络模型
     with tf.variable_scope('nmt_model', reuse=None):
         model = NMTModel()
@@ -405,20 +407,44 @@ def test_saver():
             print(var.name)
     return
 
+# --- 其他调试 ---
+def _test_other():
+    # 定义输入数据。
+    data = MakeSrcTrgDataset(src_path=para.src_train_data,
+                             trg_path=para.trg_train_data,
+                             batch_size=para.batch_size,
+                             is_shuffle=False)
+    # 创建dataset的iterator
+    iterator = data.make_initializable_iterator()
+    (src, src_size), (trg_input, trg_label, trg_size) = iterator.get_next()
+    with tf.Session() as sess:
+        sess.run(tf.global_variables_initializer())
+        sess.run(iterator.initializer)
+        for i in range(5000):
+            print('-'*10+str(i))
+            print(sess.run(src_size))
+    return
+
 if __name__ == '__main__':
     """
         在linux环境下 编码会有问题 使用 PYTHONIOENCODING=utf-8 python your_script.py 调用脚本
     """
     # get_vocab(path='./data/zh.vocab')
     # MakeDataset(file_path=para.trg_train_data)
+
     # --- 预测 ---
-    test_en_text, test_en_ids, output_text = predict_main()
-    print('---'*20)
-    print(test_en_text)
-    print(test_en_ids)
-    output_text = ''.join(output_text)
-    print(output_text)
+    # test_en_text, test_en_ids, output_text = predict_main()
+    # print('---'*20)
+    # print(test_en_text)
+    # print(test_en_ids)
+    # output_text = ''.join(output_text)
+    # print(output_text)
+
     # --- 训练 ---cd ../../..
     # train_main()
+
     # --- 加载以保存模型的所有参数和变量 ---
-    # test_saver()
+    # _test_saver()
+
+    # --- 其他调试 ---
+    _test_other()

@@ -20,15 +20,15 @@ def MakeDateset(file_path):
     return dataset
 
 
-def MakeSrcTrgDataset(para):
+def MakeSrcTrgDataset(para, is_shuffle):
     src_data = MakeDateset(para.src_train_data)
     trg_data = MakeDateset(para.trg_train_data)
     dataset = tf.data.Dataset.zip((src_data, trg_data))
     # 删除内容为空（只包含<eos>）和长度过长的句子
     def FilterLength(src_tuple, trg_tuple):
-        ((src_input, src_size), (trg_input, trg_size)) = (src_tuple, trg_tuple)
-        src_len_ok = tf.logical_and(x=tf.greater(src_size, 1), y=tf.less(src_size, para.max_len))
-        trg_len_ok = tf.logical_and(x=tf.greater(trg_size, 1), y=tf.less(trg_size, para.max_len))
+        ((src_input, src_size), (trg_label, trg_size)) = (src_tuple, trg_tuple)
+        src_len_ok = tf.logical_and(x=tf.greater(src_size, 1), y=tf.less_equal(src_size, para.max_len))
+        trg_len_ok = tf.logical_and(x=tf.greater(trg_size, 1), y=tf.less_equal(trg_size, para.max_len))
         res = tf.logical_and(x=src_len_ok, y=trg_len_ok)
         return res
 
@@ -46,7 +46,8 @@ def MakeSrcTrgDataset(para):
     dataset = dataset.map(MakeTrgInput)
 
     # 随机打乱训练数据
-    dataset = dataset.shuffle(buffer_size=10000)
+    if is_shuffle:
+        dataset = dataset.shuffle(buffer_size=10000)
 
     # 规定填充后输出的数据维度
     padded_shapes = ((tf.TensorShape([None]), tf.TensorShape([])),

@@ -9,8 +9,8 @@ Created on 2018-10-10
 # 参数设定 英文翻译成中文
 # --- 训练参数  ---
 class para_train(object):
-    trg_train_data = './data/train.zh'   # 源语言输入文件。
-    src_train_data = './data/train.en'    # 目标语言输入文件。
+    trg_train_data = './data/train.zh'   # 目标语言输入文件。
+    src_train_data = './data/train.en'    # 源语言输入文件。
     checkpoint_path = '../../../../model/attention/en_to_zh/attention_ckpt'   # checkpoint保存路径。
 
     hidden_size = 1024  # LSTM的隐藏层规模。
@@ -26,6 +26,8 @@ class para_train(object):
 
     max_len = 50  # 限定句子的最大单词数量。
     sos_id = 1  # 目标语言词汇表中<sos>的ID。
+
+    is_save = True  # 是否保存模型
 
 
 # --- 预测参数 ---
@@ -70,6 +72,8 @@ class para_train2(object):
 
     max_len = 50  # 限定句子的最大单词数量。
     sos_id = 1  # 目标语言词汇表中<sos>的ID。
+
+    is_save = True  # 是否保存模型
 
 
 # --- 预测参数 ---

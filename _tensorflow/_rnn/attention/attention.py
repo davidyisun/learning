@@ -45,7 +45,7 @@ class NMTModel(object):
         # --- 编码器 反向
         self.enc_cell_bw = tf.nn.rnn_cell.BasicLSTMCell(para.hidden_size)
         # --- 解码器
-        self.dec_cell = tf.nn.rnn_cell.MultiRNNCell([tf.nn.rnn_cell.BasicLSTMCell(para.hidden_size) for i in range(para.decoder_layers)])
+        self.dec_cell = tf.nn.rnn_cell.MultiRNNCell([tf.nn.rnn_cell.BasicLSTMCell(para.hidden_size) for _ in range(para.decoder_layers)])
 
         # 定义词向量
         self.src_embedding = tf.get_variable('src_emb', [para.src_vocab_size, para.hidden_size])
@@ -59,6 +59,7 @@ class NMTModel(object):
         self.softmax_bias = tf.get_variable('softmax_bias', [para.trg_vocab_size])
 
     def forward(self, src_input, src_size, trg_input, trg_label, trg_size):
+        batch_size = tf.shape(src_input)[0]  # 获取每个batch的size  可能存在未填满的batch
 
         # 将输入的单词编码转换为embedding
         src_emb = tf.nn.embedding_lookup(self.src_embedding, src_input)
@@ -114,7 +115,7 @@ class NMTModel(object):
             # 定义反向传播操作。
             trainable_variables = tf.trainable_variables()
             # 控制梯度大小，定义优化方法和训练步骤
-            grads = tf.gradients(ys=cost/tf.to_float(para.batch_size),
+            grads = tf.gradients(ys=cost/tf.to_float(batch_size),
                                  xs=trainable_variables)
             grads, _ = tf.clip_by_global_norm(t_list=grads,
                                               clip_norm=para.max_grad_norm)
@@ -149,7 +150,7 @@ class NMTModel(object):
                                                                  attention_layer_size=para.hidden_size)
         # --- 循环遍历解码 ---
         with tf.variable_scope('decoder/rnn/attention_wrapper'):
-            init_array = tf.TensorArray(dtype=tf.int32, size=0, dynamic_size=True, clear_after_read=False)  # 使用变长的tensorarray来存储生成的句子
+            init_array = tf.TensorArray(dtype=tf.int32, size=0, dynamic_size=True, clear_after_read=False)  # 使用变长的TensoraArray来存储生成的句子
             init_array = init_array.write(0, para.sos_id)
             init_loop_var = (attention_cell.zero_state(batch_size=1, dtype=tf.float32), init_array, 0)
 
@@ -167,7 +168,7 @@ class NMTModel(object):
                 # 调用attention_cell 向前计算一步。
                 dec_outputs, next_state = attention_cell.call(state=state, inputs=trg_emb)
                 output = tf.reshape(dec_outputs, [-1, para.hidden_size])
-                logits = (tf.matmul(output, self.softmax_weight))+self.softmax_bias
+                logits = (tf.matmul(output, self.softmax_weight)+self.softmax_bias)  # 注意此处logits是个tuple
                 next_id = tf.argmax(logits, axis=1, output_type=tf.int32)
                 trg_ids = trg_ids.write(step+1, next_id[0])
                 return next_state, trg_ids, step+1
@@ -273,7 +274,7 @@ def main():
 
 
 # ---- 参数检测 ----
-def test_saver():
+def _test_saver():
     # --- 定义需要测试句子 and 根据词表id转换为编号 ---
     flags = outside_para.Flags.sentence_input
     text_origin = flags.Flags.sentence_input
@@ -301,7 +302,22 @@ def test_saver():
     return
 
 
+# ---- 其他调试 ----
+def _test_other():
+    dataset = data_preprocess.MakeSrcTrgDataset(para=para, is_shuffle=False)
+    iterator = dataset.make_initializable_iterator()
+    (src_input, src_size), (trg_input, trg_label, trg_size) = iterator.get_next()
+    with tf.Session() as sess:
+        sess.run(tf.global_variables_initializer())
+        sess.run(iterator.initializer)
+        for i in range(5000):
+            print('-'*10+str(i))
+            print(sess.run(src_size))
+    return
+
+
 if __name__ == '__main__':
     main()
+    # _test_other()
     # text_origin, ids_origin, output_text = main_inference()
-    # test_saver()
+    # _test_saver()
