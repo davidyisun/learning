@@ -151,8 +151,19 @@ def t4():
     print(step)
     return
 
+def t5():
+    model_dir = r'D:\\workspace_for_python\\to_github\\model\\attention\\en_to_zh\\'
+    import os
+    from tensorflow.python import pywrap_tensorflow
+    checkpoint_path = os.path.join(model_dir, "attention.ckpt-8800")
+    reader = pywrap_tensorflow.NewCheckpointReader(checkpoint_path)  # tf.train.NewCheckpointReader
+    var_to_shape_map = reader.get_variable_to_shape_map()
+    for key in var_to_shape_map:
+        print("tensor_name: ", key)
+    return
+
 if __name__ == '__main__':
-    pass
     # t2()
     # t3()
     # t4()
+    t5()
