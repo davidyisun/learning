@@ -13,6 +13,7 @@ import sys
 
 # 读取checkpoint的路径。9000表示是训练程序在第9000步保存的checkpoint。
 CHECKPOINT_PATH = "../../../../model/attention/en_to_zh/attention_origin_ckpt-9000"
+CHECKPOINT_PATH = "../../../../model/attention/en_to_zh/attention_ckpt-8800"
 
 # 模型参数。必须与训练时的模型参数保持一致。
 HIDDEN_SIZE = 1024                          # LSTM的隐藏层规模。

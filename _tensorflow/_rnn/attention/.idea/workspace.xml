@@ -13,84 +13,40 @@
     <favorites_list name="attention" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.4214689">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="_test.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/_test.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="161" column="35" lean-forward="false" selection-start-line="161" selection-start-column="35" selection-end-line="161" selection-end-column="35" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="attention.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/attention.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="483">
-                  <caret line="58" column="23" lean-forward="false" selection-start-line="58" selection-start-column="23" selection-end-line="58" selection-end-column="23" />
-                  <folding>
-                    <element signature="n#!!doc" expanded="false" />
-                    <element signature="e#45#136#1" expanded="false" />
-                    <element signature="e#1117#1138#0" expanded="false" />
-                    <element signature="e#10745#10751#0" expanded="false" />
-                    <element signature="e#10825#11172#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="origin_train.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/origin_train.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="345">
-                  <caret line="15" column="76" lean-forward="true" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="76" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="data_preprocess.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/data_preprocess.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="598">
-                  <caret line="26" column="30" lean-forward="false" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="parameters.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/parameters.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="299">
-                  <caret line="13" column="75" lean-forward="false" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="75" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file leaf-file-name="origin_inference.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/origin_inference.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="290">
-                  <caret line="42" column="28" lean-forward="false" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
-                  <folding>
-                    <element signature="e#121#144#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="_test.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/_test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="396">
+              <caret line="161" column="35" lean-forward="false" selection-start-line="161" selection-start-column="35" selection-end-line="161" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="origin_inference.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/origin_inference.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="995">
+              <caret line="156" column="13" lean-forward="true" selection-start-line="156" selection-start-column="13" selection-end-line="156" selection-end-column="13" />
+              <folding>
+                <element signature="e#121#144#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="origin_train.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/origin_train.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="422">
+              <caret line="246" column="0" lean-forward="false" selection-start-line="246" selection-start-column="0" selection-end-line="246" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -166,7 +122,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../to_gitlab/temp_for_yisun" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -180,7 +136,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.attention_test">
+  <component name="RunManager" selected="Python.origin_inference">
     <configuration name="_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -235,7 +191,7 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="parameters" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="origin_inference" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -247,24 +203,44 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="attention" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parameters.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/origin_inference.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <list size="4">
+    <configuration name="origin_train" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="attention" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/origin_train.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.attention" />
       <item index="1" class="java.lang.String" itemvalue="Python._test" />
-      <item index="2" class="java.lang.String" itemvalue="Python.parameters" />
-      <item index="3" class="java.lang.String" itemvalue="Python.attention_test" />
+      <item index="2" class="java.lang.String" itemvalue="Python.attention_test" />
+      <item index="3" class="java.lang.String" itemvalue="Python.origin_inference" />
+      <item index="4" class="java.lang.String" itemvalue="Python.origin_train" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Python.attention_test" />
-        <item index="1" class="java.lang.String" itemvalue="Python._test" />
-        <item index="2" class="java.lang.String" itemvalue="Python.attention" />
-        <item index="3" class="java.lang.String" itemvalue="Python.parameters" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Python.origin_inference" />
+        <item index="1" class="java.lang.String" itemvalue="Python.origin_train" />
+        <item index="2" class="java.lang.String" itemvalue="Python.attention_test" />
+        <item index="3" class="java.lang.String" itemvalue="Python._test" />
+        <item index="4" class="java.lang.String" itemvalue="Python.attention" />
       </list>
     </recent_temporary>
   </component>
@@ -287,15 +263,15 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.06743941" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15542677" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.52008927" sideWeight="0.50421494" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5078125" sideWeight="0.76080084" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19419643" sideWeight="0.76080084" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18526785" sideWeight="0.4873551" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24973656" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3861607" sideWeight="0.49578503" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.08928572" sideWeight="0.49578503" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32982087" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -336,6 +312,16 @@
           <line>171</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/origin_train.py</url>
+          <line>246</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/origin_inference.py</url>
+          <line>157</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
@@ -344,12 +330,17 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="23" />
+      <option name="time" value="27" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateCodeFragment">
+      <expression>
+        <expression-string>''.join([trg_vocab[x] for x in output_ids])</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>tf.matmul(output, self.softmax_weight)+self.softmax_bias</expression-string>
         <language-id>Python</language-id>
@@ -388,8 +379,8 @@
             <element signature="n#!!doc" expanded="false" />
             <element signature="e#45#136#1" expanded="false" />
             <element signature="e#1117#1138#0" expanded="false" />
-            <element signature="e#10745#10751#0" expanded="false" />
-            <element signature="e#10825#11172#0" expanded="false" />
+            <element signature="e#10645#10651#0" expanded="false" />
+            <element signature="e#10725#11072#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -454,8 +445,8 @@
             <element signature="n#!!doc" expanded="false" />
             <element signature="e#45#136#1" expanded="false" />
             <element signature="e#1117#1138#0" expanded="false" />
-            <element signature="e#10745#10751#0" expanded="false" />
-            <element signature="e#10825#11172#0" expanded="false" />
+            <element signature="e#10645#10651#0" expanded="false" />
+            <element signature="e#10725#11072#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -506,8 +497,8 @@
             <element signature="n#!!doc" expanded="false" />
             <element signature="e#45#136#1" expanded="false" />
             <element signature="e#1117#1138#0" expanded="false" />
-            <element signature="e#10745#10751#0" expanded="false" />
-            <element signature="e#10825#11172#0" expanded="false" />
+            <element signature="e#10645#10651#0" expanded="false" />
+            <element signature="e#10725#11072#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -528,8 +519,8 @@
             <element signature="n#!!doc" expanded="false" />
             <element signature="e#45#136#1" expanded="false" />
             <element signature="e#1117#1138#0" expanded="false" />
-            <element signature="e#10745#10751#0" expanded="false" />
-            <element signature="e#10825#11172#0" expanded="false" />
+            <element signature="e#10645#10651#0" expanded="false" />
+            <element signature="e#10725#11072#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -549,8 +540,8 @@
             <element signature="n#!!doc" expanded="false" />
             <element signature="e#45#136#1" expanded="false" />
             <element signature="e#1117#1138#0" expanded="false" />
-            <element signature="e#10745#10751#0" expanded="false" />
-            <element signature="e#10825#11172#0" expanded="false" />
+            <element signature="e#10645#10651#0" expanded="false" />
+            <element signature="e#10725#11072#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -726,33 +717,11 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/attention_test.py" />
-    <entry file="file://$PROJECT_DIR$/_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="161" column="35" lean-forward="false" selection-start-line="161" selection-start-column="35" selection-end-line="161" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data_preprocess.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="598">
           <caret line="26" column="30" lean-forward="false" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/attention.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="58" column="23" lean-forward="false" selection-start-line="58" selection-start-column="23" selection-end-line="58" selection-end-column="23" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="e#45#136#1" expanded="false" />
-            <element signature="e#1117#1138#0" expanded="false" />
-            <element signature="e#10745#10751#0" expanded="false" />
-            <element signature="e#10825#11172#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -764,18 +733,40 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/attention.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3703">
+          <caret line="110" column="59" lean-forward="true" selection-start-line="110" selection-start-column="59" selection-end-line="110" selection-end-column="59" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#45#136#1" expanded="false" />
+            <element signature="e#1117#1138#0" expanded="false" />
+            <element signature="e#10645#10651#0" expanded="false" />
+            <element signature="e#10725#11072#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="161" column="35" lean-forward="false" selection-start-line="161" selection-start-column="35" selection-end-line="161" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/origin_train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="15" column="76" lean-forward="true" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="76" />
+        <state relative-caret-position="422">
+          <caret line="246" column="0" lean-forward="false" selection-start-line="246" selection-start-column="0" selection-end-line="246" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/origin_inference.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="42" column="28" lean-forward="false" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
+        <state relative-caret-position="995">
+          <caret line="156" column="13" lean-forward="true" selection-start-line="156" selection-start-column="13" selection-end-line="156" selection-end-column="13" />
           <folding>
             <element signature="e#121#144#0" expanded="true" />
           </folding>

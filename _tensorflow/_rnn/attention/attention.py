@@ -98,30 +98,30 @@ class NMTModel(object):
                                                sequence_length=trg_size,
                                                dtype=tf.float32)
 
-            # 计算解码器每一步的log perplexity
-            output = tf.reshape(dec_outputs, [-1, para.hidden_size])
-            logits = tf.matmul(output, self.softmax_weight) + self.softmax_bias
-            loss = tf.nn.sparse_softmax_cross_entropy_with_logits(labels=tf.reshape(trg_label, [-1]),
-                                                                  logits=logits)
+        # 计算解码器每一步的log perplexity
+        output = tf.reshape(dec_outputs, [-1, para.hidden_size])
+        logits = tf.matmul(output, self.softmax_weight) + self.softmax_bias
+        loss = tf.nn.sparse_softmax_cross_entropy_with_logits(labels=tf.reshape(trg_label, [-1]),
+                                                              logits=logits)
 
-            # 在计算平均损失时，需要将填充位置的权重设置为0，以避免无效位置的预测干扰模型的训练
-            label_weights = tf.sequence_mask(trg_size,
-                                             maxlen=tf.shape(trg_label)[1],
-                                             dtype=tf.float32)
-            label_weights = tf.reshape(label_weights, [-1])
-            cost = tf.reduce_sum(loss * label_weights)
-            cost_per_token = cost / tf.reduce_sum(label_weights)
+        # 在计算平均损失时，需要将填充位置的权重设置为0，以避免无效位置的预测干扰模型的训练
+        label_weights = tf.sequence_mask(trg_size,
+                                         maxlen=tf.shape(trg_label)[1],
+                                         dtype=tf.float32)
+        label_weights = tf.reshape(label_weights, [-1])
+        cost = tf.reduce_sum(loss * label_weights)
+        cost_per_token = cost / tf.reduce_sum(label_weights)
 
-            # 定义反向传播操作。
-            trainable_variables = tf.trainable_variables()
-            # 控制梯度大小，定义优化方法和训练步骤
-            grads = tf.gradients(ys=cost/tf.to_float(batch_size),
-                                 xs=trainable_variables)
-            grads, _ = tf.clip_by_global_norm(t_list=grads,
-                                              clip_norm=para.max_grad_norm)
-            optimizer = tf.train.GradientDescentOptimizer(learning_rate=1.0)
-            train_op = optimizer.apply_gradients(zip(grads, trainable_variables))
-            return cost_per_token, train_op
+        # 定义反向传播操作。
+        trainable_variables = tf.trainable_variables()
+        # 控制梯度大小，定义优化方法和训练步骤
+        grads = tf.gradients(ys=cost/tf.to_float(batch_size),
+                             xs=trainable_variables)
+        grads, _ = tf.clip_by_global_norm(t_list=grads,
+                                          clip_norm=para.max_grad_norm)
+        optimizer = tf.train.GradientDescentOptimizer(learning_rate=1.0)
+        train_op = optimizer.apply_gradients(zip(grads, trainable_variables))
+        return cost_per_token, train_op
 
     def inference(self, src_input):
         # 虽然只有一个句子，但因为dynamic_rnn要求输入时batch的形式，所以要将输入整理成batch_size为1的形式
@@ -196,11 +196,11 @@ def main_train():
     # --- 数据 ---
     dataset = data_preprocess.MakeSrcTrgDataset(para=para)
     iterator = dataset.make_initializable_iterator()
-    (src_input, src_size), (trg_input, trg_label, trg_size) = iterator.get_next()
+    (src, src_size), (trg_input, trg_label, trg_size) = iterator.get_next()
     # --- 模型 ---
     with tf.variable_scope('nmt_model', reuse=None, initializer=initializer):
         model = NMTModel()
-    cost_op, train_op = model.forward(src_input=src_input,
+    cost_op, train_op = model.forward(src_input=src,
                                       src_size=src_size,
                                       trg_input=trg_input,
                                       trg_label=trg_label,
@@ -266,8 +266,8 @@ def main_inference():
     return text_origin, ids_origin, output_text
 
 
-def main():
-    if outside_para.Flags.model_type == 'train':
+def main(type=outside_para.Flags.model_type):
+    if type == 'train':
         main_train()
     else:
         main_inference()
@@ -317,7 +317,7 @@ def _test_other():
 
 
 if __name__ == '__main__':
-    main()
+    main(type='inference')
     # _test_other()
     # text_origin, ids_origin, output_text = main_inference()
     # _test_saver()
