@@ -266,7 +266,7 @@ def main_inference():
 
 
 def main():
-    if outside_para.model_type == 'train':
+    if outside_para.Flags.model_type == 'train':
         main_train()
     else:
         main_inference()
