@@ -20,7 +20,7 @@ def MakeDateset(file_path):
     return dataset
 
 
-def MakeSrcTrgDataset(para, is_shuffle):
+def MakeSrcTrgDataset(para, is_shuffle=True):
     src_data = MakeDateset(para.src_train_data)
     trg_data = MakeDateset(para.trg_train_data)
     dataset = tf.data.Dataset.zip((src_data, trg_data))
