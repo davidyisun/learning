@@ -70,7 +70,7 @@ class QunaSpider(object):
          today = datetime.date.today().strftime('%Y-%m-%d')
          tomorrow=datetime.date.today() + datetime.timedelta(days=1)
          tomorrow = tomorrow.strftime('%Y-%m-%d')
-         driver = webdriver.Firefox(executable_path='D:\geckodriver_win32\geckodriver.exe')
+         driver = webdriver.Chrome()
          driver.set_page_load_timeout(50)
          driver.get(root_url)
          driver.maximize_window() # 将浏览器最大化显示

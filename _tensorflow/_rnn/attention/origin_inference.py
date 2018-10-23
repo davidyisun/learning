@@ -4,7 +4,7 @@
     脚本名: 原文测试
 Created on 2018-10-18
 @author:David Yisun
-@group:data
+@group:datao
 """
 import tensorflow as tf
 import codecs
@@ -13,7 +13,7 @@ import sys
 
 # 读取checkpoint的路径。9000表示是训练程序在第9000步保存的checkpoint。
 CHECKPOINT_PATH = "../../../../model/attention/en_to_zh/attention_origin_ckpt-9000"
-CHECKPOINT_PATH = "../../../../model/attention/en_to_zh/attention_ckpt-8800"
+# CHECKPOINT_PATH = "../../../../model/attention/en_to_zh/attention_ckpt-8800"
 
 # 模型参数。必须与训练时的模型参数保持一致。
 HIDDEN_SIZE = 1024                          # LSTM的隐藏层规模。
@@ -30,6 +30,11 @@ TRG_VOCAB = "./data/zh.vocab"
 # 是否是<eos>，因此需要知道这两个符号的ID。
 SOS_ID = 1
 EOS_ID = 2
+
+class ParametersInput():
+    flags = tf.flags
+    flags.DEFINE_string('sentence_input', 'This is a book .', 'str: the sentence needed to be translated')
+    Flags = flags.FLAGS
 
 
 # 定义NMTModel类来描述模型。
@@ -137,7 +142,8 @@ def main():
         model = NMTModel()
 
     # 定义个测试句子。
-    test_en_text = "This is a test . <eos>"
+    flags = ParametersInput()
+    test_en_text = flags.Flags.sentence_input
     print(test_en_text)
 
     # 根据英文词汇表，将测试句子转为单词ID。

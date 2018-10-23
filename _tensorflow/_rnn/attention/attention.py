@@ -13,8 +13,8 @@ import codecs
 
 class ParametersInput():
     flags = tf.flags
-    flags.DEFINE_string('sentence_input', 'how it possible', 'str: the sentence needed to be translated')
-    flags.DEFINE_string('model_type', 'train', 'str: train or inference')
+    flags.DEFINE_string('sentence_input', 'This is a book .', 'str: the sentence needed to be translated')
+    flags.DEFINE_string('model_type', 'inference', 'str: train or inference')
     flags.DEFINE_string('method', 'en_to_zh', 'str: English to Chinese or Chinese to English')
     Flags = flags.FLAGS
 
@@ -271,6 +271,7 @@ def main(type=outside_para.Flags.model_type):
         main_train()
     else:
         main_inference()
+    return
 
 
 # ---- 参数检测 ----
