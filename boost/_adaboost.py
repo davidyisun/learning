@@ -30,4 +30,3 @@ def g2(x):
     else:
         return -1
 
-a2 =
