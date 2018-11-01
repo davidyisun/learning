@@ -137,24 +137,25 @@ class word2vec():
                         batch_labels.append(label_id)
         if len(batch_inputs)==0:
             return
-        batch_inputs = np.array(batch_inputs,dtype=np.int32)
-        batch_labels = np.array(batch_labels,dtype=np.int32)
-        batch_labels = np.reshape(batch_labels,[batch_labels.__len__(),1])
+        batch_inputs = np.array(batch_inputs, dtype=np.int32)
+        batch_labels = np.array(batch_labels, dtype=np.int32)
+        batch_labels = np.reshape(batch_labels,[batch_labels.__len__(), 1])
 
         feed_dict = {
             self.train_inputs: batch_inputs,
             self.train_labels: batch_labels
         }
-        _, loss_val, summary_str = self.sess.run([self.train_op,self.loss,self.merged_summary_op], feed_dict=feed_dict)
+        # _, loss_val, summary_str = self.sess.run([self.train_op, self.loss, self.merged_summary_op], feed_dict=feed_dict)
+        _, loss_val = self.sess.run([self.train_op, self.loss], feed_dict=feed_dict)
 
         # train loss
         self.train_loss_records.append(loss_val)
         # self.train_loss_k10 = sum(self.train_loss_records)/self.train_loss_records.__len__()
         self.train_loss_k10 = np.mean(self.train_loss_records)
-        if self.train_sents_num % 1000 == 0 :
-            self.summary_writer.add_summary(summary_str,self.train_sents_num)
-            print("{a} sentences dealed, loss: {b}"
-                  .format(a=self.train_sents_num,b=self.train_loss_k10))
+        # if self.train_sents_num % 1000 == 0 :
+        #     # self.summary_writer.add_summary(summary_str,self.train_sents_num)
+        #     print("{a} sentences dealed, loss: {b}"
+        #           .format(a=self.train_sents_num,b=self.train_loss_k10))
 
         # train times
         self.train_words_num += batch_inputs.__len__()
@@ -172,7 +173,7 @@ class word2vec():
             nearst_id = (-sim_matrix[i,:]).argsort()[1:top_k+1]
             nearst_word = [self.vocab_list[x] for x in nearst_id]
             near_words.append(nearst_word)
-        return test_words,near_words,sim_mean,sim_var
+        return test_words, near_words, sim_mean, sim_var
 
     def save_model(self, save_path):
 
@@ -210,7 +211,7 @@ class word2vec():
         tf_path = os.path.join(save_path,'tf_vars')
         if os.path.exists(tf_path):
             os.remove(tf_path)
-        self.saver.save(self.sess,tf_path)
+        self.saver.save(self.sess, tf_path)
 
     def load_model(self, model_path):
         if not os.path.exists(model_path):
