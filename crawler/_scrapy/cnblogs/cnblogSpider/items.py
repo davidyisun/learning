@@ -15,3 +15,9 @@ class CnblogspiderItem(scrapy.Item):
     time = scrapy.Field()
     title = scrapy.Field()
     content = scrapy.Field()
+    # 文件对象
+    # file_urls = scrapy.Field()
+    # files = scrapy.Field()
+    # 图片对象
+    image_urls = scrapy.Field()
+    images = scrapy.Field()

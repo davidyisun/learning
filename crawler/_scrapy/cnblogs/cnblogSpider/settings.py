@@ -19,7 +19,7 @@ NEWSPIDER_MODULE = 'cnblogSpider.spiders'
 #USER_AGENT = 'cnblogSpider (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = True   # 是否遵循robot协议
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -64,9 +64,21 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'cnblogSpider.pipelines.CnblogspiderPipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'cnblogSpider.pipelines.CnblogspiderPipeline': 300,  # 300 表示 Item Pipeline 的执行顺序
+   'scrapy.pipelines.images.ImagesPipeline': 1
+}
+# 存储地址
+IMAGES_STORE = './cnblogSpider/data'  # 图片存储位置
+IMAGES_URLS_FIELD = 'image_urls'  # 图片链接 对应 items 的 image_urls
+IMAGES_RESULT_FIELD = 'images'  # 对应items的images
+IMAGES_THUMBS = {
+    'small': (50, 50),
+    'big': (270, 270),
+}
+IMAGES_EXPIRES = 30  # 30天过期
+
+
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
@@ -88,3 +100,5 @@ ROBOTSTXT_OBEY = True
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+

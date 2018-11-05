@@ -42,18 +42,18 @@ class word2vec():
                 self.word2id[self.vocab_list[i]] = i
 
             # train times
-            self.train_words_num = 0 # 训练的单词对数
-            self.train_sents_num = 0 # 训练的句子数
-            self.train_times_num = 0 # 训练的次数（一次可以有多个句子）
+            self.train_words_num = 0  # 训练的单词对数
+            self.train_sents_num = 0  # 训练的句子数
+            self.train_times_num = 0  # 训练的次数（一次可以有多个句子）
 
             # train loss records
-            self.train_loss_records = collections.deque(maxlen=10) # 保存最近10次的误差 deque 具备队列和栈的功能
+            self.train_loss_records = collections.deque(maxlen=10)  # 保存最近10次的误差 deque 具备队列和栈的功能
             self.train_loss_k10 = 0
 
         self.build_graph()
         self.init_op()
         if model_path!=None:
-            tf_model_path = os.path.join(model_path,'tf_vars')
+            tf_model_path = os.path.join(model_path, 'tf_vars')
             self.saver.restore(self.sess,tf_model_path)
 
     def init_op(self):
@@ -156,6 +156,7 @@ class word2vec():
         #     # self.summary_writer.add_summary(summary_str,self.train_sents_num)
         #     print("{a} sentences dealed, loss: {b}"
         #           .format(a=self.train_sents_num,b=self.train_loss_k10))
+
 
         # train times
         self.train_words_num += batch_inputs.__len__()
