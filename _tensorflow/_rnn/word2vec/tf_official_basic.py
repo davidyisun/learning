@@ -54,6 +54,7 @@ def maybe_download(filename, expected_bytes):
     """Download a file if not present, and make sure it's the right size."""
     local_filename = '../../../../data/learning/word2vector/'+filename    # tempfile 操作临时文件夹  gettempdir()为临时文件夹的路径
     if not os.path.exists(local_filename):
+        print('down the data ......')
         local_filename, _ = urllib.request.urlretrieve(url + filename,   # urllib.request.urlretrieve 为下载文件
                                                        local_filename)
     statinfo = os.stat(local_filename)  # 获取文件信息 如 权限 user id 文件大小等
@@ -164,7 +165,7 @@ class word2vec():
             with tf.name_scope('inputs'):
                 self.train_inputs = tf.placeholder(tf.int32, shape=[self.batch_size])
                 self.train_labels = tf.placeholder(tf.int32, shape=[self.batch_size, 1])
-                self.valid_dataset = tf.constant(tf.int32, shape=[None])  # 用于计算词相似度的数据集
+                self.valid_dataset = tf.placeholder(tf.int32, shape=[None])  # 用于计算词相似度的数据集
 
             # covert word id to embedding
             with tf.name_scope('embeddings'):
@@ -297,10 +298,10 @@ def plot_with_labels(low_dim_embs, labels, filename):
 
 def main():
     # --- 第一步：下载数据 --- Step1: Download the data
-    filename = maybe_download('text8.zip', 31344016)
-    vocabulary = read_data(filename)
-    # s = '../../../../data/learning/word2vector/text8.zip'
-    # vocabulary = read_data(s)
+    # filename = maybe_download('text8.zip', 31344016)
+    # vocabulary = read_data(filename)
+    s = '../../../../data/learning/word2vector/text8.zip'
+    vocabulary = read_data(s)
     print('Data size', len(vocabulary))
 
     # --- 第二步：生成词表 --- Step 2: Build the dictionary and replace rare words with UNK token.
