@@ -10,7 +10,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.8430055">
+    <splitter split-orientation="horizontal" split-proportion="0.32376298">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="other_train.py" pinned="false" current-in-tab="false">
@@ -48,7 +48,7 @@
           <file leaf-file-name="tf_official_basic.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/tf_official_basic.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="667">
+                <state relative-caret-position="4255">
                   <caret line="344" column="26" lean-forward="true" selection-start-line="344" selection-start-column="26" selection-end-line="344" selection-end-column="26" />
                   <folding>
                     <element signature="e#0#38#0" expanded="true" />
@@ -84,8 +84,8 @@
           <file leaf-file-name="source_other_train.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/source_other_train.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="463">
-                  <caret line="179" column="0" lean-forward="true" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
+                <state relative-caret-position="319">
+                  <caret line="284" column="0" lean-forward="true" selection-start-line="284" selection-start-column="0" selection-end-line="284" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#23#0" expanded="true" />
                   </folding>
@@ -148,9 +148,9 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1912" />
-    <option name="y" value="-226" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="148" />
+    <option name="y" value="5" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
@@ -309,7 +309,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-226" width="1936" height="1056" extended-state="6" />
+    <frame x="148" y="5" width="1936" height="1056" extended-state="0" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13751318" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -490,6 +490,8 @@
           <caret line="73" column="50" lean-forward="false" selection-start-line="73" selection-start-column="35" selection-end-line="73" selection-end-column="50" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
+            <marker date="1541419731013" expanded="true" signature="4765:12048" ph="..." />
+            <marker date="1541419731013" expanded="true" signature="10183:10485" ph="..." />
           </folding>
         </state>
       </provider>
@@ -624,22 +626,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source_other_train.py">
+    <entry file="file://$PROJECT_DIR$/tf_official_basic.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="463">
-          <caret line="179" column="0" lean-forward="true" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
+        <state relative-caret-position="152">
+          <caret line="330" column="36" lean-forward="false" selection-start-line="340" selection-start-column="88" selection-end-line="341" selection-end-column="0" />
           <folding>
-            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#0#38#0" expanded="true" />
+            <marker date="1541419731013" expanded="true" signature="4765:12048" ph="..." />
+            <marker date="1541419731013" expanded="true" signature="10183:10485" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tf_official_basic.py">
+    <entry file="file://$PROJECT_DIR$/source_other_train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="667">
-          <caret line="344" column="26" lean-forward="true" selection-start-line="344" selection-start-column="26" selection-end-line="344" selection-end-column="26" />
+        <state relative-caret-position="319">
+          <caret line="284" column="0" lean-forward="true" selection-start-line="284" selection-start-column="0" selection-end-line="284" selection-end-column="0" />
           <folding>
-            <element signature="e#0#38#0" expanded="true" />
+            <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>
