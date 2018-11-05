@@ -253,8 +253,8 @@ class word2vec():
             # Note that this is expensive (~20% slowdown if computed every 500 steps) 计算矩阵相似性
             if step % 10000 == 0:
                 test_words, near_words, near_sims, sim_mean, sim_var = self.cal_similarity(word_id_list=self.valid_examples.tolist(), top_k=8)
-                for index, i in enumerate(len(test_words)):
-                    s = 'Nearest to {0} is {1}: {2}, sim is {3} \n'.format(test_words[i], index, near_words[i], near_sims[i])
+                for i in range(len(test_words)):
+                    s = 'Nearest to {0} is {1}: {2}, sim is {3} \n'.format(test_words[i], i+1, near_words[i], near_sims[i])
                     print(s)
         self.final_embeddings = embeddings
         return

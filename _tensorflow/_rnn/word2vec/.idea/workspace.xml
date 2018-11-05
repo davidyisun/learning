@@ -98,8 +98,8 @@
                   <caret line="330" column="36" lean-forward="false" selection-start-line="340" selection-start-column="88" selection-end-line="341" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#38#0" expanded="true" />
-                    <marker date="1541422001786" expanded="true" signature="4803:12014" ph="..." />
-                    <marker date="1541422001786" expanded="true" signature="10224:10526" ph="..." />
+                    <marker date="1541422140816" expanded="true" signature="4803:12001" ph="..." />
+                    <marker date="1541422140816" expanded="true" signature="10224:10526" ph="..." />
                   </folding>
                 </state>
               </provider>
@@ -147,10 +147,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-426" />
-    <option name="y" value="132" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
     <option name="width" value="1936" />
-    <option name="height" value="954" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
