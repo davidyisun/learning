@@ -281,8 +281,12 @@ if __name__=='__main__':
     test_word = ['萧炎', '灵魂', '火焰', '长老', '尊者', '皱眉']
     test_id = [word_list.index(x) for x in test_word]
     num_steps = 100000
+    # print(len(sentence_list))
+
     for i in range(num_steps):
         sent = sentence_list[i%len(sentence_list)]
+        # print('---'*20)
+        # print(sent)
         w2v.train_by_sentence([sent])
 
 
