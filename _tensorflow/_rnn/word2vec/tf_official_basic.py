@@ -301,7 +301,7 @@ def main():
     # vocabulary = read_data(filename)
     s = '../../../../data/learning/word2vector/text8.zip'
     vocabulary = read_data(s)
-    print('Data size', len(vocabulary))
+    print('Data size', len(vocabulary))  # vocabulary 是一个 词组 list
 
     # --- 第二步：生成词表 --- Step 2: Build the dictionary and replace rare words with UNK token.
     vocabulary_size = 50000

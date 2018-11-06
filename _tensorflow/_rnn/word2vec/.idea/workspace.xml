@@ -10,13 +10,13 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.7477092">
+    <splitter split-orientation="horizontal" split-proportion="0.24113475">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="other_train.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/other_train.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-253">
+                <state relative-caret-position="437">
                   <caret line="30" column="46" lean-forward="false" selection-start-line="30" selection-start-column="46" selection-end-line="30" selection-end-column="46" />
                   <folding />
                 </state>
@@ -26,7 +26,7 @@
           <file leaf-file-name="tf_official_w2v.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tf_official_w2v.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="247">
+                <state relative-caret-position="3151">
                   <caret line="137" column="20" lean-forward="false" selection-start-line="137" selection-start-column="20" selection-end-line="137" selection-end-column="20" />
                   <folding>
                     <element signature="e#720#758#0" expanded="true" />
@@ -38,54 +38,8 @@
           <file leaf-file-name="math_ops.py" pinned="false" current-in-tab="false">
             <entry file="file://D:/Anaconda3/Lib/site-packages/tensorflow/python/ops/math_ops.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-1593">
+                <state relative-caret-position="41653">
                   <caret line="1840" column="4" lean-forward="false" selection-start-line="1840" selection-start-column="4" selection-end-line="1840" selection-end-column="4" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="tf_official_basic.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/tf_official_basic.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="273">
-                  <caret line="157" column="32" lean-forward="false" selection-start-line="157" selection-start-column="32" selection-end-line="157" selection-end-column="32" />
-                  <folding>
-                    <element signature="e#0#38#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="fromnumeric.py" pinned="false" current-in-tab="false">
-            <entry file="file://D:/Anaconda3/Lib/site-packages/numpy/core/fromnumeric.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-982">
-                  <caret line="137" column="4" lean-forward="false" selection-start-line="137" selection-start-column="4" selection-end-line="137" selection-end-column="4" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="writer.py" pinned="false" current-in-tab="false">
-            <entry file="file://D:/Anaconda3/Lib/site-packages/tensorflow/python/summary/writer/writer.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="290">
-                  <caret line="296" column="6" lean-forward="false" selection-start-line="296" selection-start-column="6" selection-end-line="296" selection-end-column="6" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file leaf-file-name="source_other_train.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/source_other_train.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="122">
-                  <caret line="121" column="8" lean-forward="false" selection-start-line="121" selection-start-column="8" selection-end-line="121" selection-end-column="8" />
                   <folding />
                 </state>
               </provider>
@@ -94,12 +48,48 @@
           <file leaf-file-name="tf_official_basic.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tf_official_basic.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="152">
-                  <caret line="330" column="36" lean-forward="false" selection-start-line="340" selection-start-column="88" selection-end-line="341" selection-end-column="0" />
+                <state relative-caret-position="-227">
+                  <caret line="307" column="0" lean-forward="false" selection-start-line="307" selection-start-column="0" selection-end-line="307" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#38#0" expanded="true" />
-                    <marker date="1541422140816" expanded="true" signature="4803:12001" ph="..." />
-                    <marker date="1541422140816" expanded="true" signature="10224:10526" ph="..." />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="writer.py" pinned="false" current-in-tab="false">
+            <entry file="file://D:/Anaconda3/Lib/site-packages/tensorflow/python/summary/writer/writer.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="6371">
+                  <caret line="296" column="6" lean-forward="false" selection-start-line="296" selection-start-column="6" selection-end-line="296" selection-end-column="6" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="source_other_train.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/source_other_train.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-53">
+                  <caret line="267" column="44" lean-forward="false" selection-start-line="267" selection-start-column="44" selection-end-line="267" selection-end-column="44" />
+                  <folding>
+                    <element signature="e#0#23#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="tf_official_basic.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/tf_official_basic.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="315">
+                  <caret line="333" column="11" lean-forward="false" selection-start-line="333" selection-start-column="9" selection-end-line="333" selection-end-column="11" />
+                  <folding>
+                    <element signature="e#0#38#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -108,7 +98,7 @@
           <file leaf-file-name="_test.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/_test.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="409">
+                <state relative-caret-position="414">
                   <caret line="18" column="12" lean-forward="false" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
                   <folding />
                 </state>
@@ -131,6 +121,7 @@
       <find>save_model</find>
       <find>FLAGS</find>
       <find>learning_rate</find>
+      <find>model</find>
     </findStrings>
     <replaceStrings>
       <replace>para</replace>
@@ -146,7 +137,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
@@ -167,7 +158,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -185,10 +175,11 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../to_gitlab/temp_for_yisun" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -202,7 +193,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.source_other_train">
+  <component name="RunManager" selected="Python.tf_official_basic">
     <configuration name="_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -283,8 +274,8 @@
     </list>
     <recent_temporary>
       <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Python.source_other_train" />
-        <item index="1" class="java.lang.String" itemvalue="Python.tf_official_basic" />
+        <item index="0" class="java.lang.String" itemvalue="Python.tf_official_basic" />
+        <item index="1" class="java.lang.String" itemvalue="Python.source_other_train" />
         <item index="2" class="java.lang.String" itemvalue="Python._test" />
         <item index="3" class="java.lang.String" itemvalue="Python.tf_official_w2v" />
       </list>
@@ -307,18 +298,18 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13751318" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1085353" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23214285" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924107" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23214285" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24973656" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924107" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28683037" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34375" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -351,11 +342,16 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/source_other_train.py</url>
-          <line>274</line>
+          <line>273</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/tf_official_basic.py</url>
+          <line>307</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="18" />
+      <option name="time" value="19" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -371,6 +367,16 @@
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateCodeFragment">
+      <expression>
+        <expression-string>data, count, dictionary, reverse_dictionary = build_dataset(vocabulary, vocabulary_size)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>dict(word_count)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>batch_size // num_skips</expression-string>
         <language-id>Python</language-id>
@@ -403,16 +409,6 @@
       </expression>
       <expression>
         <expression-string>len(most(data))</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>len(data)</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>len(vocabulary)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
@@ -463,6 +459,58 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/other_train.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tf_official_w2v.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3151">
+          <caret line="137" column="20" lean-forward="false" selection-start-line="137" selection-start-column="20" selection-end-line="137" selection-end-column="20" />
+          <folding>
+            <element signature="e#720#758#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Anaconda3/Lib/site-packages/tensorflow/python/ops/math_ops.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="41653">
+          <caret line="1840" column="4" lean-forward="false" selection-start-line="1840" selection-start-column="4" selection-end-line="1840" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tf_official_basic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3611">
+          <caret line="157" column="32" lean-forward="false" selection-start-line="157" selection-start-column="32" selection-end-line="157" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Anaconda3/Lib/site-packages/numpy/core/fromnumeric.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2898">
+          <caret line="137" column="4" lean-forward="false" selection-start-line="137" selection-start-column="4" selection-end-line="137" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Anaconda3/Lib/site-packages/tensorflow/python/summary/writer/writer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6371">
+          <caret line="296" column="6" lean-forward="false" selection-start-line="296" selection-start-column="6" selection-end-line="296" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/other_train.py">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="437">
           <caret line="30" column="46" lean-forward="false" selection-start-line="30" selection-start-column="46" selection-end-line="30" selection-end-column="46" />
           <folding />
@@ -501,7 +549,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -539,7 +589,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="191">
           <caret line="288" column="4" lean-forward="false" selection-start-line="288" selection-start-column="4" selection-end-line="288" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -555,7 +604,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="267">
           <caret line="228" column="4" lean-forward="false" selection-start-line="228" selection-start-column="4" selection-end-line="228" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -563,7 +611,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-499">
           <caret line="1029" column="22" lean-forward="false" selection-start-line="1029" selection-start-column="22" selection-end-line="1029" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -577,7 +624,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/other_train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-253">
+        <state relative-caret-position="437">
           <caret line="30" column="46" lean-forward="false" selection-start-line="30" selection-start-column="46" selection-end-line="30" selection-end-column="46" />
           <folding />
         </state>
@@ -585,7 +632,7 @@
     </entry>
     <entry file="file://D:/Anaconda3/Lib/site-packages/tensorflow/python/summary/writer/writer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
+        <state relative-caret-position="6371">
           <caret line="296" column="6" lean-forward="false" selection-start-line="296" selection-start-column="6" selection-end-line="296" selection-end-column="6" />
           <folding />
         </state>
@@ -593,7 +640,7 @@
     </entry>
     <entry file="file://D:/Anaconda3/Lib/site-packages/tensorflow/python/ops/math_ops.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1593">
+        <state relative-caret-position="41653">
           <caret line="1840" column="4" lean-forward="false" selection-start-line="1840" selection-start-column="4" selection-end-line="1840" selection-end-column="4" />
           <folding />
         </state>
@@ -601,7 +648,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tf_official_w2v.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
+        <state relative-caret-position="3151">
           <caret line="137" column="20" lean-forward="false" selection-start-line="137" selection-start-column="20" selection-end-line="137" selection-end-column="20" />
           <folding>
             <element signature="e#720#758#0" expanded="true" />
@@ -609,34 +656,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_test.py">
+    <entry file="file://D:/Anaconda3/Lib/site-packages/numpy/core/fromnumeric.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="409">
-          <caret line="18" column="12" lean-forward="false" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
+        <state relative-caret-position="2898">
+          <caret line="137" column="4" lean-forward="false" selection-start-line="137" selection-start-column="4" selection-end-line="137" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Anaconda3/Lib/site-packages/numpy/core/fromnumeric.py">
+    <entry file="file://$PROJECT_DIR$/_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-982">
-          <caret line="137" column="4" lean-forward="false" selection-start-line="137" selection-start-column="4" selection-end-line="137" selection-end-column="4" />
+        <state relative-caret-position="414">
+          <caret line="18" column="12" lean-forward="false" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source_other_train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="121" column="8" lean-forward="false" selection-start-line="121" selection-start-column="8" selection-end-line="121" selection-end-column="8" />
-          <folding />
+        <state relative-caret-position="-53">
+          <caret line="267" column="44" lean-forward="false" selection-start-line="267" selection-start-column="44" selection-end-line="267" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tf_official_basic.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="157" column="32" lean-forward="false" selection-start-line="157" selection-start-column="32" selection-end-line="157" selection-end-column="32" />
+        <state relative-caret-position="315">
+          <caret line="333" column="11" lean-forward="false" selection-start-line="333" selection-start-column="9" selection-end-line="333" selection-end-column="11" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
           </folding>

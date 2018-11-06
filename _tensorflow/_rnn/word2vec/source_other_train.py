@@ -235,7 +235,6 @@ class word2vec():
             self.train_loss_k10 = model['train_loss_k10']
 
 if __name__=='__main__':
-
     # step 1 读取停用词
     stop_words = []
     with codecs.open('./data/stop_words.txt', 'r', 'utf-8') as f:
