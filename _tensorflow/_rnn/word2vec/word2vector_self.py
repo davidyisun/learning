@@ -34,7 +34,7 @@ def get_entry_config():
     option, args = parser.parse_args()
     res = {'log_dir': option.log_dir,
            'data': option.data_dir,
-           'stop_words_data': option.stop_words_dir,
+           'stop_words_data': option.stop_words_data,
            'model': option.model_dir,
            'vocabulary_dir': option.vocabulary_dir}
     return res
