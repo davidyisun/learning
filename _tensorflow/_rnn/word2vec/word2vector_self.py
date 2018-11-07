@@ -246,7 +246,7 @@ def data_preprocess():
 
     # 3.统计词频,选前50000个词
     word_count = collections.Counter(data_input)
-    print('文本中总共有{n1}个单词,不重复单词数{n2}'.format(n1=len(data_input), n2=len(word_count)))
+    print(r'文本中总共有{n1}个单词,不重复单词数{n2}'.format(n1=len(data_input), n2=len(word_count)))
     word_count = word_count.most_common(50000)
     word_count = dict(word_count)  # word:count
 
@@ -270,16 +270,21 @@ def data_preprocess():
 # 训练主程序
 def train_main():
     # step 1 数据预处理
+    print('data preprocess ......')
     data_id_list, word_count, dictionary, reverse_dictionary = data_preprocess()
     # step 2 建立模型并初始化
+    print('build model ......')
     model = word2vec(vocabulary_size=len(word_count),
                      dictionary=dictionary,
                      reverse_dictionary=reverse_dictionary,
                      log_dir=para['log_dir'],
                      model_dir=para['model_dir'])
+    print('build graph ......')
     model.build_graph()
+    print('model initialize ......')
     model.init_op()
     # step 3 开始训练
+    print('model train ......')
     model.train_by_sentence(data_id_list=data_id_list)
     return
 
