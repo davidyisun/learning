@@ -262,7 +262,7 @@ def data_preprocess():
         f.write('\n'.join(file))
 
     # 5.将原文换成id
-    data_id_list = [dictionary[w] for w in data_input]
+    data_id_list = [dictionary[w] if w in dictionary else 0 for w in data_input ]
 
     return data_id_list, word_count, dictionary, reverse_dictionary
 
