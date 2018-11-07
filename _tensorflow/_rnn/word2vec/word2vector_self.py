@@ -239,8 +239,7 @@ def data_preprocess():
     with codecs.open(para['data'], 'r', 'gbk') as f:
         data = f.read()
     data = re.sub(' |\\n|\\r', '', data)
-    data_list = data.splitlines()
-    data_list = jieba.lcut(data_list, cut_all=False)
+    data_list = jieba.lcut(data, cut_all=False)
     for word in data_list:
         if word not in stop_words:
             data_input.append(word)
