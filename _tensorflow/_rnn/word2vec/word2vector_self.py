@@ -26,14 +26,14 @@ def get_entry_config():
     usage = 'crawler_jinrongbaike_vocab_entry'
     parser = OptionParser(usage=usage)
     parser.add_option('--log_dir', action='store', dest='log_dir', type='str', default='../../../../model/word2vector/xiaoshuo/log/')
-    parser.add_option('--data', action='store', dest='data_dir', type='str', default='./data/280.txt')
+    parser.add_option('--data', action='store', dest='data', type='str', default='./data/280.txt')
     parser.add_option('--stop_words_data', action='store', dest='stop_words_data', type='str', default='./data/stop_words.txt')
     parser.add_option('--model_dir', action='store', dest='model_dir', type='str', default='../../../../data/model/word2vector/model/xiaoshuo/')
     parser.add_option('--vocabulary_dir', action='store', dest='vocabulary_dir', type='str', default='./data/')
 
     option, args = parser.parse_args()
     res = {'log_dir': option.log_dir,
-           'data': option.data_dir,
+           'data': option.data,
            'stop_words_data': option.stop_words_data,
            'model': option.model_dir,
            'vocabulary_dir': option.vocabulary_dir}
