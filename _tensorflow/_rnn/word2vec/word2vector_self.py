@@ -27,7 +27,7 @@ def get_entry_config():
     parser = OptionParser(usage=usage)
     parser.add_option('--log_dir', action='store', dest='log_dir', type='str', default='../../../../model/word2vector/xiaoshuo/log/')
     parser.add_option('--data', action='store', dest='data_dir', type='str', default='./data/280.txt')
-    parser.add_option('--stop_words', action='store', dest='stop_words_dir', type='str', default='./data/stop_words.txt')
+    parser.add_option('--stop_words_data', action='store', dest='stop_words_data', type='str', default='./data/stop_words.txt')
     parser.add_option('--model_dir', action='store', dest='model_dir', type='str', default='../../../../data/model/word2vector/model/xiaoshuo/')
     parser.add_option('--vocabulary_dir', action='store', dest='vocabulary_dir', type='str', default='./data/')
 
@@ -230,7 +230,7 @@ class word2vec():
 def data_preprocess():
     # 1.读取停用词 文件需要为一行一词
     stop_words = []
-    with codecs.open(para['stop_words'], 'r', 'utf-8') as f:
+    with codecs.open(para['stop_words_data'], 'r', 'utf-8') as f:
         data = f.readlines()
     stop_words = set(data)
 
