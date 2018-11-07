@@ -231,8 +231,8 @@ def data_preprocess():
     # 1.读取停用词 文件需要为一行一词
     stop_words = []
     with codecs.open(para['stop_words_data'], 'r', 'utf-8') as f:
-        data = f.readlines()
-    stop_words = set(data)
+        data = f.read()
+    stop_words = set(data.splitlines())
 
     # 2.读取文本，过滤停用词
     data_input = []
