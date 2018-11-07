@@ -26,15 +26,17 @@ def get_entry_config():
     usage = 'crawler_jinrongbaike_vocab_entry'
     parser = OptionParser(usage=usage)
     parser.add_option('--log_dir', action='store', dest='log_dir', type='str', default='../../../../model/word2vector/xiaoshuo/log/')
-    parser.add_option('--data_dir', action='store', dest='data_dir', type='str', default='./data/280.txt')
-    parser.add_option('--stop_words_dir', action='store', dest='stop_words_dir', type='str', default='./data/stop_words.txt')
+    parser.add_option('--data', action='store', dest='data_dir', type='str', default='./data/280.txt')
+    parser.add_option('--stop_words', action='store', dest='stop_words_dir', type='str', default='./data/stop_words.txt')
     parser.add_option('--model_dir', action='store', dest='model_dir', type='str', default='../../../../data/model/word2vector/model/xiaoshuo/')
+    parser.add_option('--vocabulary_dir', action='store', dest='vocabulary_dir', type='str', default='./data/')
 
     option, args = parser.parse_args()
     res = {'log_dir': option.log_dir,
-           'data_dir': option.data_dir,
+           'data': option.data_dir,
            'stop_words_data': option.stop_words_dir,
-           'model_dir': option.model_dir}
+           'model': option.model_dir,
+           'vocabulary_dir': option.vocabulary_dir}
     return res
 
 para = get_entry_config()
@@ -58,13 +60,12 @@ class word2vec():
 
     learn_rate = 1.0  # 学习率
 
-    def __init__(self, vocabulary_size, dictionary, reverse_dictionary, log_dir, model_dir, data_dir):
+    def __init__(self, vocabulary_size, dictionary, reverse_dictionary, log_dir, model_dir):
         self.vocabulary_size = vocabulary_size
         self.dictionary = dictionary
         self.reverse_dictionary = reverse_dictionary
         self.log_dir = log_dir
         self.model_dir = model_dir
-        self.data_dir = data_dir
 
     def init_op(self):
         self.sess = tf.Session(graph=self.graph)
@@ -225,22 +226,17 @@ class word2vec():
         return test_words, near_words, near_sims, sim_mean, sim_var
 
 
-# 生成词表
-def build_dataset():
-    pass
-
-
 # 文件预预处理: 获取文件, 去掉停用词, 生成词表
 def data_preprocess():
     # 1.读取停用词 文件需要为一行一词
     stop_words = []
-    with codecs.open(para['stop_words_dir'], 'r', 'utf-8') as f:
+    with codecs.open(para['stop_words'], 'r', 'utf-8') as f:
         data = f.readlines()
     stop_words = set(data)
 
     # 2.读取文本，过滤停用词
     data_input = []
-    with codecs.open(para['data_dir'], 'r', 'gbk') as f:
+    with codecs.open(para['data'], 'r', 'gbk') as f:
         data = f.read()
     data = re.sub(' |\\n|\\r', '', data)
     data_list = data.splitlines()
@@ -249,19 +245,22 @@ def data_preprocess():
         if word not in stop_words:
             data_input.append(word)
 
-    # 3.统计词频,选前30000个词
+    # 3.统计词频,选前50000个词
     word_count = collections.Counter(data_input)
     print('文本中总共有{n1}个单词,不重复单词数{n2}'.format(n1=len(data_input), n2=len(word_count)))
     word_count = word_count.most_common(50000)
     word_count = dict(word_count)  # word:count
 
-    # 4.生成词表
+    # 4.生成词表并保存
     vocabulary = list(word_count.keys())
     dictionary = {'UNK':0}
     reverse_dictionary = {0:'UNK'}
     for index, w in enumerate(vocabulary):
         dictionary[w] = index   # w : id
         reverse_dictionary[index+1] = w   # id : w
+    with codecs.open(os.path.join(para['vocabulary_dir'], 'vocabulary.txt'), 'w', 'gbk') as f:
+        file = ['UNK'] + vocabulary
+        f.write('\n'.join(file))
 
     # 5.将原文换成id
     data_id_list = [dictionary[w] for w in data_input]
@@ -269,6 +268,7 @@ def data_preprocess():
     return data_id_list, word_count, dictionary, reverse_dictionary
 
 
+# 训练主程序
 def train_main():
     # step 1 数据预处理
     data_id_list, word_count, dictionary, reverse_dictionary = data_preprocess()
@@ -277,8 +277,7 @@ def train_main():
                      dictionary=dictionary,
                      reverse_dictionary=reverse_dictionary,
                      log_dir=para['log_dir'],
-                     model_dir=para['model_dir'],
-                     data_dir=para['data_dir'])
+                     model_dir=para['model_dir'])
     model.build_graph()
     model.init_op()
     # step 3 开始训练
@@ -286,7 +285,21 @@ def train_main():
     return
 
 def inference_main():
+    # step 1 读取词表
+    with codecs.open(os.path.join(para['vocabulary_dir'], 'vocabulary.txt'), 'r', 'gbk') as f:
+        v = f.read()
+    dictionary = dict([(j, i) for i, j in enumerate(v.splitlines())])
+    reverse_dictionary = dict([(i, j) for i, j in enumerate(v.splitlines())])
+    # step 2 建立模型并初始化
+    model = word2vec(vocabulary_size=len(dictionary),
+                     dictionary=dictionary,
+                     reverse_dictionary=reverse_dictionary,
+                     log_dir=para['log_dir'],
+                     model_dir=para['model_dir'])
+    model.init_op()
+    # 加载模型
+    model.saver.restore(sess=model.sess, save_path='/data/demo/model/word2vector/model/model.ckpt-100000')
     pass
 
 if __name__ == '__main__':
-    data_preprocess()
+    train_main()
