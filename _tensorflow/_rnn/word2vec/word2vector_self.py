@@ -35,7 +35,7 @@ def get_entry_config():
     res = {'log_dir': option.log_dir,
            'data': option.data,
            'stop_words_data': option.stop_words_data,
-           'model': option.model_dir,
+           'model_dir': option.model_dir,
            'vocabulary_dir': option.vocabulary_dir}
     return res
 
