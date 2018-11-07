@@ -83,8 +83,7 @@ class word2vec():
 
             # covert word id to embedding
             with tf.name_scope('embeddings'):
-                self.embeddings = tf.Variable(
-                    tf.random_uniform([self.vocabulary_size, self.embedding_size], -1.0, 1.0))
+                self.embeddings = tf.Variable(tf.random_uniform([self.vocabulary_size, self.embedding_size], -1.0, 1.0))
                 self.embed = tf.nn.embedding_lookup(self.embeddings, self.train_inputs)
 
             # Construct the variables for the NCE loss
