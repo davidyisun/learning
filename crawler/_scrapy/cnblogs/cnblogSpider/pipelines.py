@@ -12,8 +12,10 @@ import codecs
 
 class CnblogspiderPipeline(object):
     def __init__(self):
-        self.file = codecs.open('papers.json', 'w', 'utf-8')
+        # self.file = codecs.open(item['save_path']+'papers.json', 'w', 'utf-8')
+        return
     def process_item(self, item, spider):
+        self.file = codecs.open(item['save_path']+'papers.json', 'w', 'utf-8')
         self.file.write('---'*20+'\n')
         if item['title']:
             # line = json.dumps(dict(item)) + '\n'

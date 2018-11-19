@@ -17,6 +17,9 @@ class CnblogsSpider(scrapy.Spider):
     start_urls = [
       "http://www.cnblogs.com/qiyeboy/default.html?page=1"
     ]
+
+    def __init__(self, category=None, save_path='./'):
+        self.save_path = save_path
     def parse(self, response):
         #里面实现网页的而解析
         # 里面实现网页的而解析
@@ -28,7 +31,7 @@ class CnblogsSpider(scrapy.Spider):
             title = paper.xpath(".//*[@class='postTitle']/a/text()").extract()[0]
             time = paper.xpath(".//*[@class='dayTitle']/a/text()").extract()[0]
             content = paper.xpath(".//*[@class='postCon']/div/text()").extract()[0]
-            item = CnblogspiderItem(url=url, title=title, time=time, content=content)
+            item = CnblogspiderItem(url=url, title=title, time=time, content=content, save_path=self.save_path)
             request = scrapy.Request(url=url, callback=self.parse_body) # 点进去访问
             request.meta['item'] = item  # 将item暂存
             # print(item.keys())

@@ -163,7 +163,6 @@ class word2vec():
         return batch, labels, data_index
 
     def train_by_sentence(self, data_id_list, num_steps=100001):
-        self.data = data_id_list
         self.num_steps = num_steps  # 设置训练steps
         # Open a writer to write summaries. 将graph写进tensorboard
         writer = tf.summary.FileWriter(logdir=self.log_dir,
@@ -172,7 +171,7 @@ class word2vec():
         data_index = 0
         embeddings = []
         for step in range(num_steps):
-            batch_inputs, batch_labels, data_index = self.generate_batch(data=self.data,
+            batch_inputs, batch_labels, data_index = self.generate_batch(data=data_id_list,
                                                                          data_index=data_index,
                                                                          batch_size=self.batch_size,
                                                                          num_skips=self.num_skips,
@@ -261,8 +260,7 @@ def data_preprocess():
         f.write('\n'.join(file))
 
     # 5.将原文换成id
-    data_id_list = [dictionary[w] if w in dictionary else 0 for w in data_input ]
-
+    data_id_list = [dictionary[w] if w in dictionary else 0 for w in data_input]
     return data_id_list, word_count, dictionary, reverse_dictionary
 
 

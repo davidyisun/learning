@@ -21,3 +21,5 @@ class CnblogspiderItem(scrapy.Item):
     # 图片对象
     image_urls = scrapy.Field()
     images = scrapy.Field()
+    
+    save_path = scrapy.Field()
