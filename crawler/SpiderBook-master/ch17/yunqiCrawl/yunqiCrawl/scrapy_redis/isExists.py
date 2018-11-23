@@ -1,6 +1,6 @@
 # encoding=utf-8
 import redis
-from BloomfilterOnRedis import BloomFilter
+from .BloomfilterOnRedis import BloomFilter
 from scrapy.utils.request import request_fingerprint
 from scrapy import Request
 
@@ -13,11 +13,11 @@ if __name__ == '__main__':
         url = 'http://www.x14hack.com/'
         request = Request(url)
         fp = request_fingerprint(request)
-        print fp,
+        print(fp),
         if bf.isContains(fp):
-            print 'exist!'
+            print('exist!')
         else:
-            print 'not exist!'
+            print('not exist!')
 
 
 

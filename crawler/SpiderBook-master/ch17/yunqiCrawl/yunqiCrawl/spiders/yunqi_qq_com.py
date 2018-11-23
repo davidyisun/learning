@@ -11,6 +11,7 @@ class YunqiQqComSpider(CrawlSpider):
     allowed_domains = ['yunqi.qq.com']
     start_urls = ['http://yunqi.qq.com/bk/so2/n30p1']
 
+    # 用rules对  LinkExtractor 为链接提取器
     rules = (
         Rule(LinkExtractor(allow=r'/bk/so2/n30p\d+'), callback='parse_book_list', follow=True),
     )
@@ -35,17 +36,15 @@ class YunqiQqComSpider(CrawlSpider):
                 novelStatus=''
                 novelUpdateTime=''
                 novelWords=0
-            bookListItem = YunqiBookListItem(novelId=novelId,novelName=novelName,
-                              novelLink=novelLink,novelAuthor=novelAuthor,
-                              novelType=novelType,novelStatus=novelStatus,
-                              novelUpdateTime=novelUpdateTime,novelWords=novelWords,
+            bookListItem = YunqiBookListItem(novelId=novelId, novelName=novelName,
+                              novelLink=novelLink, novelAuthor=novelAuthor,
+                              novelType=novelType, novelStatus=novelStatus,
+                              novelUpdateTime=novelUpdateTime, novelWords=novelWords,
                               novelImageUrl=novelImageUrl)
             yield bookListItem
-            request = scrapy.Request(url=novelLink,callback=self.parse_book_detail)
+            request = scrapy.Request(url=novelLink, callback=self.parse_book_detail)
             request.meta['novelId'] = novelId
             yield request
-
-
 
 
     def parse_book_detail(self,response):

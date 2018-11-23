@@ -1,8 +1,8 @@
 from pybloom import BloomFilter
 f = BloomFilter(capacity=1000, error_rate=0.001)
-print  [f.add(x) for x in range(10)]
-print 11 in f
-print 4 in f
+print([f.add(x) for x in range(10)])
+print(11 in f)
+print(4 in f)
 
 '''
 from pybloom import ScalableBloomFilter

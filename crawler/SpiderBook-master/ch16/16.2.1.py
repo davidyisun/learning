@@ -2,7 +2,7 @@
 import redis
 r = redis.Redis(host='127.0.0.1', port=6379)
 r.set('name', 'qiye')
-print r.get('name')
+print(r.get('name'))
 
 '''
 pool = redis.ConnectionPool(host='127.0.0.1', port=6379)

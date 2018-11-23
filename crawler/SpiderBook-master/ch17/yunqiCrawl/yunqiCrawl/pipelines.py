@@ -11,51 +11,50 @@ from yunqiCrawl.items import YunqiBookListItem
 
 class YunqicrawlPipeline(object):
 
-    def __init__(self, mongo_uri, mongo_db,replicaset):
+    def __init__(self, mongo_uri, mongo_db, replicaset):
         self.mongo_uri = mongo_uri
         self.mongo_db = mongo_db
         self.replicaset = replicaset
 
+
     @classmethod
-    def from_crawler(cls, crawler):
+    def from_crawler(cls, crawler):  # 通过crawler调用settings里面的参数
         return cls(
             mongo_uri=crawler.settings.get('MONGO_URI'),
             mongo_db=crawler.settings.get('MONGO_DATABASE', 'yunqi'),
-            replicaset = crawler.settings.get('REPLICASET')
+            replicaset=crawler.settings.get('REPLICASET')
         )
 
+
     def open_spider(self, spider):
-        self.client = pymongo.MongoClient(self.mongo_uri,replicaset=self.replicaset)
+        self.client = pymongo.MongoClient(self.mongo_uri, replicaset=self.replicaset)
         self.db = self.client[self.mongo_db]
+ 
 
     def close_spider(self, spider):
         self.client.close()
 
 
-    def process_item(self, item, spider):
-        if isinstance(item,YunqiBookListItem):
+    def process_item(self, item, spider):  # 主调用函数
+        if isinstance(item, YunqiBookListItem):
             self._process_booklist_item(item)
         else:
             self._process_bookeDetail_item(item)
         return item
 
 
-
     def _process_booklist_item(self,item):
         '''
-        处理小说信息
+            处理小说信息
         :param item:
         :return:
         '''
         self.db.bookInfo.insert(dict(item))
 
 
-
-
-
     def _process_bookeDetail_item(self,item):
         '''
-        处理小说热度
+            处理小说热度
         :param item:
         :return:
         '''

@@ -107,6 +107,7 @@ FILTER_DB = 0
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
+# --- 中间件设置 ---
 DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
     'yunqiCrawl.middlewares.RandomUserAgent.RandomUserAgent': 410,
@@ -124,7 +125,7 @@ REPLICASET = 'repset'
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
+ITEM_PIPELINES = {    # pipline通道 
    'yunqiCrawl.pipelines.YunqicrawlPipeline': 300,
 }
 
