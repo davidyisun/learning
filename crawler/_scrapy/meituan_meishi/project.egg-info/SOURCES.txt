@@ -1,0 +1,13 @@
+setup.py
+meituan_meishi/__init__.py
+meituan_meishi/items.py
+meituan_meishi/middlewares.py
+meituan_meishi/pipelines.py
+meituan_meishi/settings.py
+meituan_meishi/spiders/__init__.py
+meituan_meishi/spiders/meituan_meishi_spider.py
+project.egg-info/PKG-INFO
+project.egg-info/SOURCES.txt
+project.egg-info/dependency_links.txt
+project.egg-info/entry_points.txt
+project.egg-info/top_level.txt
