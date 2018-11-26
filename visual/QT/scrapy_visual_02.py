@@ -18,10 +18,10 @@ host = 'http://123.59.42.48'
 port = '7481'
 url = host+':'+port
 
-# - 本地测试
-host = 'http://127.0.0.1'
-port = '19'
-url = host+':'+port
+# # - 本地测试
+# host = 'http://127.0.0.1'
+# port = '19'
+# url = host+':'+port
 
 # --- QT 界面 ---
 class Ui_MainWindow(object):
@@ -345,7 +345,7 @@ class Ui_MainWindow(object):
         fileName, filetype = QtWidgets.QFileDialog.getOpenFileName(qt_widgets,
                                                                    '浏览文件',
                                                                    './',
-                                                                   "Text Files (*.txt)")  # 末项为文件过滤
+                                                                   "Text Files (*.txt);All Files (*)")  # 末项为文件过滤
         self.lineEdit_5.setText(fileName)
 
 
