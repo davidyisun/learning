@@ -18,10 +18,10 @@ host = 'http://123.59.42.48'
 port = '7481'
 url = host+':'+port
 
-# # - 本地测试
-# host = 'http://127.0.0.1'
-# port = '19'
-# url = host+':'+port
+# - 本地测试
+host = 'http://127.0.0.1'
+port = '19'
+url = host+':'+port
 
 # --- QT 界面 ---
 class Ui_MainWindow(object):
@@ -406,7 +406,7 @@ class Ui_MainWindow(object):
         check_file = self.request_object.check_file(para=para)
         # --远程服务不存在
         if check_file['state'] == 299:
-            self.echo2(text_title=message_title, value='检查远程文件:'+check_file['result']+'\nerror:'+check_file['error'])
+            self.echo2(text_title=message_title, value='检查远程文件:'+check_file['result']+'\nerror:'+str(check_file['error']))
             return
         # --请求失败
         if check_file['state'] == 300:
@@ -427,7 +427,7 @@ class Ui_MainWindow(object):
         create_file =self.request_object.create_project(files=files, para=para)
         # --远程服务不存在
         if create_file['state'] == 299:
-            self.echo2(text_title=message_title, value='创立文件:'+check_file['result']+'\nerror:'+check_file['error'])
+            self.echo2(text_title=message_title, value='创立文件:'+create_file['result']+'\nerror:'+str(create_file['error']))
             return
         # --请求失败
         if create_file['state'] == 300:
@@ -446,6 +446,7 @@ class Ui_MainWindow(object):
 class DataReqeust(object):
     def __init__(self, host = 'http://123.59.42.48', port = '7481'):
         self.url = host + ':' + port
+
 
     # 检查文件是否存在
     def check_file(self, para):
