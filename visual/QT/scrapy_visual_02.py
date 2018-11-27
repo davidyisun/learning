@@ -15,7 +15,7 @@ import os
 import re
 # --- 请求 ---
 host = 'http://123.59.42.48'
-port = '7481'
+port = '7482'
 url = host+':'+port
 
 error_state = [299]  # 远程服务不存在
