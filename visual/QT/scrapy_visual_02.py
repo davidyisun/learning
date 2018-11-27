@@ -18,6 +18,11 @@ host = 'http://123.59.42.48'
 port = '7481'
 url = host+':'+port
 
+error_state = [299]  # 远程服务不存在
+failed_requtest_state = [300]  # 请求失败 链接中断
+failed_state = list(range(100)) # 远程数据处理失败
+
+
 # # - 本地测试
 # host = 'http://127.0.0.1'
 # port = '19'
@@ -25,6 +30,7 @@ url = host+':'+port
 
 # --- QT 界面 ---
 class Ui_MainWindow(object):
+    projects_name = []
     def __init__(self):
         self.request_object = DataReqeust(host=host, port=port)  # 建立请求对象
 
@@ -229,6 +235,10 @@ class Ui_MainWindow(object):
         self.statusBar.setObjectName("statusBar")
         MainWindow.setStatusBar(self.statusBar)
 
+
+        # 更新项目列表
+        self.update_project_info()
+
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(1)
 
@@ -247,6 +257,7 @@ class Ui_MainWindow(object):
         # self.pushButton_7.clicked.connect(MainWindow.find2)
         # self.pushButton_8.clicked.connect(MainWindow.find1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -295,6 +306,10 @@ class Ui_MainWindow(object):
         self.label_19.setText(_translate("MainWindow", "保存格式"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "数据下载"))
 
+        self.comboBox.addItems(self.projects_name)
+        self.comboBox_2.addItems(self.projects_name)
+        self.comboBox_3.addItems(self.projects_name)
+
     # 辅助窗口
     def echo(self, text_title, value, button_accept='确认', button_cancel='取消'):
         """
@@ -325,14 +340,43 @@ class Ui_MainWindow(object):
         QtWidgets.QMessageBox.information(qt_widgets, text_title, value, QtWidgets.QMessageBox.Ok)
         return
 
+    def filt_resquest(self, res, message_title='', is_echo=True):
+        """
+            过滤 response 状态
+        :param res:
+        :return:
+        """
+        # 远程服务不存在
+        if res['state'] in error_state:
+            if is_echo:
+                self.echo2(text_title=message_title, value='远程服务不存在:'+res['result']+'\nerror:'+str(res['error']))
+            return 'failed'
+        # 请求失败
+        if res['state'] in failed_requtest_state:
+            if is_echo:
+                self.echo2(text_title=message_title, value='请求失败:'+res['result'])
+            return 'failed'
+        # 远程数据处理失败
+        if res['state'] in failed_state:
+            if is_echo:
+                metion = res['result']+'\nerror:'+res['error']
+                self.echo2(text_title=message_title, value=metion)
+            return 'failed'
+        return 'succeed'
+
+
     # 更新已有项目下拉窗口
     def update_project_info(self):
         """
             更新项目列表
         :return:
         """
-
-        # 【项目编辑】中的【项目名称】
+        message_title = '项目更新'
+        res = self.request_object.get_projects_info(para={"project_name": '*'})
+        # 更新失败
+        if self.filt_resquest(res=res, is_echo=True, message_title=message_title) == 'failed':
+            return
+        self.projects_name = list(res['data'].keys())
         return
 
     # 词条文件上传
@@ -439,6 +483,8 @@ class Ui_MainWindow(object):
             self.echo2(text_title=message_title, value=metion)
             return
         self.echo2(text_title=message_title, value=create_file['result'])
+        # 更新项目列表
+        self.update_project_info()
         return
 
 
@@ -478,17 +524,29 @@ class DataReqeust(object):
                     'result': '请求失败'}
         return json.loads(res.text)
 
-    # 更新已有项目信息
-    def update_projects_info(self):
+    # 获取已有项目信息
+    def get_projects_info(self, para):
         """
             更新项目列表
+        :param para: [项目名]
         :return:
         """
-        return
+        self.url_project_info = self.url + '/baiduzhidao/get_projects_info'
+        try:
+            res = requests.post(url=self.url_project_info, params=para)
+        except Exception as e:
+            return {'state': 299,
+                    'result': '远程服务不存在',
+                    'error': e}
+        res.encoding = res.apparent_encoding
+        if res.status_code != 200:
+            return {'state': 300,
+                    'result': '请求失败'}
+        return res
 
 def main():
     """
-    主函数，用于运行程序
+        主函数，用于运行程序
     :return: None
     """
     app = QtWidgets.QApplication(sys.argv)
