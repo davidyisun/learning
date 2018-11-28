@@ -165,7 +165,7 @@ class Ui_MainWindow(object):
         self.tab_3 = QtWidgets.QWidget()
         self.tab_3.setObjectName("tab_3")
         self.formLayoutWidget_2 = QtWidgets.QWidget(self.tab_3)
-        self.formLayoutWidget_2.setGeometry(QtCore.QRect(20, 50, 191, 281))
+        self.formLayoutWidget_2.setGeometry(QtCore.QRect(20, 50, 210, 281))
         self.formLayoutWidget_2.setObjectName("formLayoutWidget_2")
         self.formLayout_2 = QtWidgets.QFormLayout(self.formLayoutWidget_2)
         self.formLayout_2.setContentsMargins(11, 11, 11, 11)
@@ -570,13 +570,15 @@ class Ui_MainWindow(object):
             return
         if state_info == None and item_info != None:
             self.label_26.setText('已完成')
-            self.label_9.setText('{0}(问答对共{1}条)'.format(item_info['item_len'], item_info['item_qus_len']))
-            self.label_28.setText(item_info['item_left_len'])
         if state_info != None:
             self.label_26.setText('正在爬取数据')
         if item_info != None:
-            self.label_9.setText('{0}(问答对共{1}条)'.format(item_info['item_len'], item_info['item_qus_len']))
-            self.label_28.setText(item_info['item_left_len'])
+            self.label_27.setText('{0}(问答对共{1}条)'.format(item_info['item_len'], item_info['item_qus_len']))
+            self.label_28.setText(str(item_info['item_left_len']))
+        else:
+            self.label_26.setText('unknown')
+            self.label_27.setText('unknown')
+            self.label_28.setText('unknown')
         return
 
 # 数据请求对象
