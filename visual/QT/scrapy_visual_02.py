@@ -158,7 +158,7 @@ class Ui_MainWindow(object):
         self.label_7 = QtWidgets.QLabel(self.formLayoutWidget)
         self.label_7.setObjectName("label_7")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_7)
-        self.pushButton_8 = QtWidgets.QPushButton(self.tab)
+        self.pushButton_8 = QtWidgets.QPushButton(self.tab)  # 【项目编辑】查询
         self.pushButton_8.setGeometry(QtCore.QRect(100, 50, 108, 23))
         self.pushButton_8.setObjectName("pushButton_8")
         self.tabWidget.addTab(self.tab, "")
@@ -244,7 +244,7 @@ class Ui_MainWindow(object):
         self.pushButton_102 = QtWidgets.QPushButton(self.tab)
         self.pushButton_102.setGeometry(QtCore.QRect(220, 20, 71, 21))
         self.pushButton_102.setObjectName("pushButton_102")
-        # ----- 增加【刷新】按钮 -----
+
 
         self.tabWidget.addTab(self.tab_2, "")
         MainWindow.setCentralWidget(self.centralWidget)
@@ -270,6 +270,10 @@ class Ui_MainWindow(object):
         self.pushButton_100.clicked.connect(self.update_project_info)
         self.pushButton_101.clicked.connect(self.update_project_info)
         self.pushButton_102.clicked.connect(self.update_project_info)
+        #【项目编辑】-【查询】
+        self.pushButton_8.clicked.connect(self.query_project_config)
+        #【爬虫管理】-【查询】
+        self.pushButton_7.clicked.connect(self.query_spider_management)
 
 
 
@@ -305,20 +309,22 @@ class Ui_MainWindow(object):
         self.pushButton_4.setText(_translate("MainWindow", "修改参数"))
         self.pushButton_5.setText(_translate("MainWindow", "删除项目"))
         self.label_5.setText(_translate("MainWindow", "词条文件"))
-        self.label_20.setText(_translate("MainWindow", "unknown"))
-        self.label_22.setText(_translate("MainWindow", "unknown"))
-        self.label_23.setText(_translate("MainWindow", "unknown"))
-        self.label_24.setText(_translate("MainWindow", "unknown"))
-        self.label_25.setText(_translate("MainWindow", "存在"))
+        # --- 【项目编辑】
+        self.label_20.setText(_translate("MainWindow", "unknown"))  # 每个条目爬取的数量
+        self.label_22.setText(_translate("MainWindow", "unknown"))  # 词条前缀
+        self.label_23.setText(_translate("MainWindow", "unknown"))  # 词条后缀
+        self.label_24.setText(_translate("MainWindow", "unknown"))  # 词条替换
+        self.label_25.setText(_translate("MainWindow", "不存在"))  # 词条文件
         self.label_7.setText(_translate("MainWindow", "当前参数"))
         self.pushButton_8.setText(_translate("MainWindow", "查询"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "项目编辑"))
+        # --- 【爬虫管理】
         self.label_8.setText(_translate("MainWindow", "当前状态"))
-        self.label_26.setText(_translate("MainWindow", "unknown"))
+        self.label_26.setText(_translate("MainWindow", "unknown"))   # 当前状态
         self.label_9.setText(_translate("MainWindow", "已爬取条目数"))
-        self.label_27.setText(_translate("MainWindow", "unknown"))
+        self.label_27.setText(_translate("MainWindow", "unknown"))   # 已爬取条目数
         self.label_10.setText(_translate("MainWindow", "剩余条目数"))
-        self.label_28.setText(_translate("MainWindow", "unknown"))
+        self.label_28.setText(_translate("MainWindow", "unknown"))   # 剩余条目数
         self.pushButton.setText(_translate("MainWindow", "开始"))
         self.pushButton_7.setText(_translate("MainWindow", "查询"))
         self.pushButton_2.setText(_translate("MainWindow", "终止"))
@@ -522,6 +528,56 @@ class Ui_MainWindow(object):
         self.update_project_info()
         return
 
+    # 【查询】【编辑项目】项目信息
+    def query_project_config(self):
+        project_name = self.comboBox.currentText()
+        res = self.request_object.get_projects_info(para={'projects_name':project_name})
+        if self.filt_resquest(res=res, message_title='查询') == 'failed':
+            return
+        data = res['data']
+        if project_name not in data:
+            self.echo2(text_title='查询', value='项目不存在！\n请刷新')
+            return
+
+        config_info = data[project_name]['config_info']
+        if config_info != None:
+            self.label_20.setText(config_info['num_limit'])
+            self.label_22.setText(config_info['prefix'])
+            self.label_23.setText(config_info['suffix'])
+            self.label_24.setText(config_info['reg'])
+        else:
+            self.echo2(text_title='查询', value='项目{0}缺少参数配置！\n重新配置参数')
+        word_info = data[project_name]['word_info']
+        if word_info != None:
+            self.label_25.setText('存在')
+        return
+
+    # 【查询】【爬虫管理】项目信息
+    def query_spider_management(self):
+        project_name = self.comboBox_2.currentText()
+        res = self.request_object.get_projects_info(para={'projects_name':project_name})
+        if self.filt_resquest(res=res, message_title='查询') == 'failed':
+            return
+        data = res['data']
+        if project_name not in data:
+            self.echo2(text_title='查询', value='项目不存在！\n请刷新')
+            return
+
+        state_info = data[project_name]['run_state']
+        item_info = data[project_name]['item_info']
+        if state_info == None and item_info == None:
+            self.label_26.setText('未启动')
+            return
+        if state_info == None and item_info != None:
+            self.label_26.setText('已完成')
+            self.label_9.setText('{0}(问答对共{1}条)'.format(item_info['item_len'], item_info['item_qus_len']))
+            self.label_28.setText(item_info['item_left_len'])
+        if state_info != None:
+            self.label_26.setText('正在爬取数据')
+        if item_info != None:
+            self.label_9.setText('{0}(问答对共{1}条)'.format(item_info['item_len'], item_info['item_qus_len']))
+            self.label_28.setText(item_info['item_left_len'])
+        return
 
 # 数据请求对象
 class DataReqeust(object):
