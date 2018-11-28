@@ -20,7 +20,7 @@ url = host+':'+port
 
 error_state = [299]  # 远程服务不存在
 failed_requtest_state = [300]  # 请求失败 链接中断
-failed_state = list(range(100)) # 远程数据处理失败
+failed_state = list(range(1, 100)) # 远程数据处理失败
 
 
 # # - 本地测试
@@ -51,12 +51,15 @@ class Ui_MainWindow(object):
         self.formLayout_3.setContentsMargins(11, 11, 11, 11)
         self.formLayout_3.setSpacing(6)
         self.formLayout_3.setObjectName("formLayout_3")
+
         self.label_16 = QtWidgets.QLabel(self.formLayoutWidget_3)
         self.label_16.setObjectName("label_16")
         self.formLayout_3.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_16)
+
         self.lineEdit = QtWidgets.QLineEdit(self.formLayoutWidget_3)
         self.lineEdit.setObjectName("lineEdit")
         self.formLayout_3.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.lineEdit)
+
         self.label_11 = QtWidgets.QLabel(self.formLayoutWidget_3)
         self.label_11.setObjectName("label_11")
         self.formLayout_3.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_11)
@@ -189,9 +192,11 @@ class Ui_MainWindow(object):
         self.pushButton = QtWidgets.QPushButton(self.formLayoutWidget_2)
         self.pushButton.setObjectName("pushButton")
         self.formLayout_2.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.pushButton)
+
         self.pushButton_7 = QtWidgets.QPushButton(self.formLayoutWidget_2)
         self.pushButton_7.setObjectName("pushButton_7")
         self.formLayout_2.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.pushButton_7)
+
         self.pushButton_2 = QtWidgets.QPushButton(self.formLayoutWidget_2)
         self.pushButton_2.setObjectName("pushButton_2")
         self.formLayout_2.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.pushButton_2)
@@ -226,6 +231,21 @@ class Ui_MainWindow(object):
         self.label_19 = QtWidgets.QLabel(self.tab_2)
         self.label_19.setGeometry(QtCore.QRect(20, 50, 54, 41))
         self.label_19.setObjectName("label_19")
+
+        # ----- 增加【刷新】按钮 -----
+        self.pushButton_100 = QtWidgets.QPushButton(self.tab_2)
+        self.pushButton_100.setGeometry(QtCore.QRect(220, 20, 71, 21))
+        self.pushButton_100.setObjectName("pushButton_100")
+        
+        self.pushButton_101 = QtWidgets.QPushButton(self.tab_3)
+        self.pushButton_101.setGeometry(QtCore.QRect(220, 20, 71, 21))
+        self.pushButton_101.setObjectName("pushButton_101")
+        
+        self.pushButton_102 = QtWidgets.QPushButton(self.tab)
+        self.pushButton_102.setGeometry(QtCore.QRect(220, 20, 71, 21))
+        self.pushButton_102.setObjectName("pushButton_102")
+        # ----- 增加【刷新】按钮 -----
+
         self.tabWidget.addTab(self.tab_2, "")
         MainWindow.setCentralWidget(self.centralWidget)
         self.mainToolBar = QtWidgets.QToolBar(MainWindow)
@@ -246,6 +266,12 @@ class Ui_MainWindow(object):
         self.toolButton.clicked.connect(self.browse_folders)
         # 新建项目，传参
         self.pushButton_3.clicked.connect(self.creat_project)
+        # 刷新项目列表
+        self.pushButton_100.clicked.connect(self.update_project_info)
+        self.pushButton_101.clicked.connect(self.update_project_info)
+        self.pushButton_102.clicked.connect(self.update_project_info)
+
+
 
         # self.pushButton_3.clicked.connect(MainWindow.create_new_project)
         # self.pushButton_4.clicked.connect(MainWindow.change_para)
@@ -305,10 +331,10 @@ class Ui_MainWindow(object):
         self.comboBox_4.setItemText(2, _translate("MainWindow", "txt"))
         self.label_19.setText(_translate("MainWindow", "保存格式"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "数据下载"))
+        self.pushButton_100.setText(_translate("MainWindow", "刷新"))
+        self.pushButton_101.setText(_translate("MainWindow", "刷新"))
+        self.pushButton_102.setText(_translate("MainWindow", "刷新"))
 
-        self.comboBox.addItems(self.projects_name)
-        self.comboBox_2.addItems(self.projects_name)
-        self.comboBox_3.addItems(self.projects_name)
 
     # 辅助窗口
     def echo(self, text_title, value, button_accept='确认', button_cancel='取消'):
@@ -359,7 +385,10 @@ class Ui_MainWindow(object):
         # 远程数据处理失败
         if res['state'] in failed_state:
             if is_echo:
-                metion = res['result']+'\nerror:'+res['error']
+                try:
+                    metion = res['result']+'\nerror:'+res['error']
+                except:
+                    pass
                 self.echo2(text_title=message_title, value=metion)
             return 'failed'
         return 'succeed'
@@ -372,11 +401,17 @@ class Ui_MainWindow(object):
         :return:
         """
         message_title = '项目更新'
-        res = self.request_object.get_projects_info(para={"project_name": '*'})
+        res = self.request_object.get_projects_info(para={"projects_name": '*'})
         # 更新失败
         if self.filt_resquest(res=res, is_echo=True, message_title=message_title) == 'failed':
             return
         self.projects_name = list(res['data'].keys())
+        self.comboBox.clear()
+        self.comboBox_2.clear()
+        self.comboBox_3.clear()
+        self.comboBox.addItems(self.projects_name)
+        self.comboBox_2.addItems(self.projects_name)
+        self.comboBox_3.addItems(self.projects_name)
         return
 
     # 词条文件上传
@@ -533,7 +568,7 @@ class DataReqeust(object):
         """
         self.url_project_info = self.url + '/baiduzhidao/get_projects_info'
         try:
-            res = requests.post(url=self.url_project_info, params=para)
+            res = requests.get(url=self.url_project_info, params=para)
         except Exception as e:
             return {'state': 299,
                     'result': '远程服务不存在',
@@ -542,7 +577,7 @@ class DataReqeust(object):
         if res.status_code != 200:
             return {'state': 300,
                     'result': '请求失败'}
-        return res
+        return json.loads(res.text)
 
 def main():
     """
