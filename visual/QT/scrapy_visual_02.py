@@ -28,7 +28,7 @@ failed_state = list(range(1, 100)) # 远程数据处理失败
 # port = '19'
 # url = host+':'+port
 
-# --- QT 界面 ---
+# --- QT 主界面 ---
 class Ui_MainWindow(object):
     projects_name = []
     def __init__(self):
@@ -131,7 +131,7 @@ class Ui_MainWindow(object):
         self.label_6 = QtWidgets.QLabel(self.formLayoutWidget)
         self.label_6.setObjectName("label_6")
         self.formLayout.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.label_6)
-        self.pushButton_4 = QtWidgets.QPushButton(self.formLayoutWidget)
+        self.pushButton_4 = QtWidgets.QPushButton(self.formLayoutWidget)  # 修改参数
         self.pushButton_4.setObjectName("pushButton_4")
         self.formLayout.setWidget(6, QtWidgets.QFormLayout.LabelRole, self.pushButton_4)
         self.pushButton_5 = QtWidgets.QPushButton(self.formLayoutWidget)
@@ -215,11 +215,26 @@ class Ui_MainWindow(object):
         self.comboBox_3 = QtWidgets.QComboBox(self.tab_2)  # 【数据下载】中的【项目名称】
         self.comboBox_3.setGeometry(QtCore.QRect(80, 20, 131, 21))
         self.comboBox_3.setObjectName("comboBox_3")
-        self.pushButton_6 = QtWidgets.QPushButton(self.tab_2)
-        self.pushButton_6.setGeometry(QtCore.QRect(140, 60, 71, 23))
-        self.pushButton_6.setObjectName("pushButton_6")
+        # 【数据下载】-【保存地址】
+        # '保存地址' label
+        self.label_200 = QtWidgets.QLabel(self.tab_2)
+        self.label_200.setGeometry(QtCore.QRect(20, 45, 54, 41))
+        self.label_200.setObjectName("label_200")
+        # 保存地址 line_edit
+        self.lineEdit_201 = QtWidgets.QLineEdit(self.tab_2)
+        self.lineEdit_201.setGeometry(QtCore.QRect(80, 55, 100, 21))
+        self.lineEdit_201.setObjectName("lineEdit_201")
+        # 选择保存地址 pushbutton
+        self.toolButton_202 = QtWidgets.QPushButton(self.tab_2)
+        self.toolButton_202.setGeometry(QtCore.QRect(180, 55, 32, 22))
+        self.toolButton_202.setObjectName("toolButton_202")
+        # 【数据下载】-【保存格式】
+        self.label_19 = QtWidgets.QLabel(self.tab_2)
+        self.label_19.setGeometry(QtCore.QRect(20, 80, 54, 41))
+        self.label_19.setObjectName("label_19")
+        # -【csv json txt】
         self.comboBox_4 = QtWidgets.QComboBox(self.tab_2)   # 【数据下载】中的【保存格式】
-        self.comboBox_4.setGeometry(QtCore.QRect(80, 60, 51, 21))
+        self.comboBox_4.setGeometry(QtCore.QRect(80, 90, 51, 21))
         font = QtGui.QFont()  # 字体设置
         font.setFamily("Adobe Devanagari")
         font.setPointSize(11)  # 字体大小
@@ -228,9 +243,10 @@ class Ui_MainWindow(object):
         self.comboBox_4.addItem("")
         self.comboBox_4.addItem("")
         self.comboBox_4.addItem("")
-        self.label_19 = QtWidgets.QLabel(self.tab_2)
-        self.label_19.setGeometry(QtCore.QRect(20, 50, 54, 41))
-        self.label_19.setObjectName("label_19")
+        # -【下载】
+        self.pushButton_6 = QtWidgets.QPushButton(self.tab_2)
+        self.pushButton_6.setGeometry(QtCore.QRect(140, 90, 71, 23))
+        self.pushButton_6.setObjectName("pushButton_6")
 
         # ----- 增加【刷新】按钮 -----
         self.pushButton_100 = QtWidgets.QPushButton(self.tab_2)
@@ -274,7 +290,18 @@ class Ui_MainWindow(object):
         self.pushButton_8.clicked.connect(self.query_project_config)
         #【爬虫管理】-【查询】
         self.pushButton_7.clicked.connect(self.query_spider_management)
-
+        #【项目编辑】-【修改参数】
+        self.pushButton_4.clicked.connect(self.change_config)
+        #【项目编辑】-【删除项目】
+        self.pushButton_5.clicked.connect(self.delect_project)
+        #【爬虫管理】-【开始】
+        self.pushButton.clicked.connect(self.start_project)
+        #【爬虫管理】-【终止】
+        self.pushButton_2.clicked.connect(self.stop_project)
+        #【数据下载】-【下载】
+        self.pushButton_6.clicked.connect(self.download)
+        # 【数据下载】-【选择保存地址】
+        self.toolButton_202.clicked.connect(self.browse_save_folders)
 
 
         # self.pushButton_3.clicked.connect(MainWindow.create_new_project)
@@ -336,10 +363,13 @@ class Ui_MainWindow(object):
         self.comboBox_4.setItemText(1, _translate("MainWindow", "json"))
         self.comboBox_4.setItemText(2, _translate("MainWindow", "txt"))
         self.label_19.setText(_translate("MainWindow", "保存格式"))
+        self.label_200.setText(_translate("MainWindow", "保存地址"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "数据下载"))
         self.pushButton_100.setText(_translate("MainWindow", "刷新"))
         self.pushButton_101.setText(_translate("MainWindow", "刷新"))
         self.pushButton_102.setText(_translate("MainWindow", "刷新"))
+        self.toolButton_202.setText(_translate("MainWindow", "..."))
+        self.lineEdit_201.setText(_translate("MainWindow", os.getcwd()))
 
 
     # 辅助窗口
@@ -391,10 +421,7 @@ class Ui_MainWindow(object):
         # 远程数据处理失败
         if res['state'] in failed_state:
             if is_echo:
-                try:
-                    metion = res['result']+'\nerror:'+res['error']
-                except:
-                    pass
+                metion = res['result']+'\nerror:'+res['error']
                 self.echo2(text_title=message_title, value=metion)
             return 'failed'
         return 'succeed'
@@ -433,6 +460,13 @@ class Ui_MainWindow(object):
                                                                    "Text Files (*.txt);All Files (*)")  # 末项为文件过滤
         self.lineEdit_5.setText(fileName)
 
+    # 获取下载地址
+    def browse_save_folders(self):
+        qt_widgets = QtWidgets.QWidget()
+        dir= QtWidgets.QFileDialog.getExistingDirectory(qt_widgets,
+                                                        '选择保存地址',
+                                                        './')
+        self.lineEdit_201.setText(dir)
 
     # 新建项目
     def creat_project(self):
@@ -500,7 +534,7 @@ class Ui_MainWindow(object):
         # --文件已存在
         if check_file['state'] in [1]:
             res = self.echo(text_title=message_title, value=check_file['result'], button_accept='覆盖', button_cancel='取消')
-            if res == 1: return # 选择【取消】返回
+            if res == 1: return  # 选择【取消】返回
         # -创建文件
         try:
             f = codecs.open(para['entry_dir'], 'r', 'utf-8')
@@ -531,7 +565,7 @@ class Ui_MainWindow(object):
     # 【查询】【编辑项目】项目信息
     def query_project_config(self):
         project_name = self.comboBox.currentText()
-        res = self.request_object.get_projects_info(para={'projects_name':project_name})
+        res = self.request_object.get_projects_info(para={'projects_name':[project_name]})
         if self.filt_resquest(res=res, message_title='查询') == 'failed':
             return
         data = res['data']
@@ -555,7 +589,7 @@ class Ui_MainWindow(object):
     # 【查询】【爬虫管理】项目信息
     def query_spider_management(self):
         project_name = self.comboBox_2.currentText()
-        res = self.request_object.get_projects_info(para={'projects_name':project_name})
+        res = self.request_object.get_projects_info(para={'projects_name': [project_name]})
         if self.filt_resquest(res=res, message_title='查询') == 'failed':
             return
         data = res['data']
@@ -581,7 +615,92 @@ class Ui_MainWindow(object):
             self.label_28.setText('unknown')
         return
 
-# 数据请求对象
+    # 【项目编辑】-【修改参数】
+    def change_config(self):
+        # 构建新的子窗口
+        return
+
+    # 【项目编辑】-【删除项目】
+    def delect_project(self):
+        message_title = '删除项目'
+        project_name = self.comboBox.currentText()
+        res = self.echo(text_title=message_title, value='确定要删除项目:{0}'.format(project_name))
+        if res == 1: return # 选择【取消】返回
+        res = self.request_object.other_options(para={'option': 'delect',
+                                                      'projects_name': [project_name],
+                                                      'hard_start': False})
+        if self.filt_resquest(res, message_title=message_title) == 'succeed':
+            self.echo2(text_title=message_title, value=res['result'])
+        return
+
+    # 【爬虫管理】-【开始】
+    def start_project(self):
+        message_title = '开启项目'
+        project_name = self.comboBox_2.currentText()
+        res = self.echo(text_title='开始项目', value='确定要开始项目:{0}'.format(project_name))
+        if res == 1: return # 选择【取消】返回
+        res = self.request_object.other_options(para={'option': 'start',
+                                                      'projects_name': [project_name],
+                                                      'hard_start': True})
+        self.filt_resquest(res, message_title=message_title)
+        if self.filt_resquest(res, message_title=message_title) == 'succeed':
+            self.echo2(text_title=message_title, value=res['data'][project_name]['result'])
+        return
+
+    # 【爬虫管理】-【终止】
+    def stop_project(self):
+        message_title = "终止项目"
+        project_name = self.comboBox_2.currentText()
+        res = self.echo(text_title='终止项目', value='确定要终止项目:{0}'.format(project_name))
+        if res == 1: return # 选择【取消】返回
+        res = self.request_object.other_options(para={'option': 'stop',
+                                                      'projects_name': [project_name],
+                                                      'hard_start': True})
+        self.filt_resquest(res, message_title=message_title)
+        if self.filt_resquest(res, message_title=message_title) == 'succeed':
+            self.echo2(text_title=message_title, value=res['data'][project_name]['result'])
+        return
+
+    # 【数据下载】-【下载】
+    def download(self):
+        message_title = "下载数据"
+        project_name = self.comboBox_3.currentText()
+        file_format = self.comboBox_4.currentText()
+        save_path = self.lineEdit_201.text()
+        # 选择保存地址
+        res = self.request_object.download_file(para={'project_name': project_name})
+        if self.filt_resquest(res, message_title=message_title) == 'succeed':
+            self.echo2(text_title=message_title, value=res['result'])
+            file_path = os.path.join(save_path, '{0}.{1}'.format(project_name, file_format))
+            data = res['data']
+            try:
+                self.save_data_tool(file_format=file_format, file_path=file_path, data=data)
+            except Exception as e:
+                self.echo2(text_title=message_title, value='数据保存错误\n'+str(e))
+                try:
+                    self.save_data_tool(file_format='txt', file_path=file_path, data=data)
+                    self.echo2(text_title=message_title, value='数据缓存成txt')
+                except Exception as e2:
+                    self.echo2(text_title=message_title, value='数据缓存成txt错误\n' + str(e2))
+        return
+
+    # --- 小工具 ---
+    def save_data_tool(self, file_format, file_path, data):
+        if file_format == 'txt':
+            with codecs.open(file_path, 'w', 'utf-8') as f:
+                f.write(data)
+        if file_format == 'json':
+            with codecs.open(file_path, 'w', 'utf-8') as f:
+                text = [d.split('\t') for d in data.splitlines()]
+                json.dump({'data': text}, f)
+        if file_format == 'csv':
+            import pandas as pd
+            text = [d.split('\t') for d in data.splitlines()]
+            df = pd.DataFrame(text)
+            df.colunms = ['词条', '问题', '答案']
+            df.to_csv(file_path, index=False)
+
+# --- 数据请求对象 ---
 class DataReqeust(object):
     def __init__(self, host = 'http://123.59.42.48', port = '7481'):
         self.url = host + ':' + port
@@ -636,6 +755,49 @@ class DataReqeust(object):
             return {'state': 300,
                     'result': '请求失败'}
         return json.loads(res.text)
+
+    # 其他操作 【删除】【开始】【终止】
+    def other_options(self, para):
+        """
+            【删除】【开始】【终止】等操作
+        :param para: {'option':,
+                      'projects_name':,
+                      'hard_start': }
+        :return:
+        """
+        self.url_other_options = self.url + '/baiduzhidao/other_options'
+        try:
+            res = requests.get(url=self.url_other_options, params=para)
+        except Exception as e:
+            return {'state': 299,
+                    'result': '远程服务不存在',
+                    'error': e}
+        res.encoding = res.apparent_encoding
+        if res.status_code != 200:
+            return {'state': 300,
+                    'result': '请求失败'}
+        return json.loads(res.text)
+
+    # 【数据下载】-【下载】
+    def download_file(self, para):
+        """
+            下载数据 返回response
+        :param para:
+        :return:
+        """
+        self.url_other_options = self.url + '/baiduzhidao/download_items'
+        try:
+            res = requests.get(url=self.url_other_options, params=para)
+        except Exception as e:
+            return {'state': 299,
+                    'result': '远程服务不存在',
+                    'error': e}
+        res.encoding = res.apparent_encoding
+        if res.status_code != 200:
+            return {'state': 300,
+                    'result': '请求失败'}
+        return json.loads(res.text)
+
 
 def main():
     """
