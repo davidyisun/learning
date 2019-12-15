@@ -5,7 +5,6 @@
 Created on 2018-03-09
 @author:David Yisun
 @group:data
-@contact:davidhu@wezhuiyi.com
 """
 
 
