@@ -5,7 +5,6 @@
 Created on 2018--
 @author:David Yisun
 @group:data
-@contact:davidhu@wezhuiyi.com
 """
 
 import tensorflow as tf
